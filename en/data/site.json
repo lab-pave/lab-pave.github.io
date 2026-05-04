@@ -1,0 +1,30 @@
+{
+  "pt": {
+    "home": {"title": "PAVe", "subtitle": "Pesquisas Avançadas em Vesículas Extracelulares", "intro": "Bem-vindo ao site do PAVe (UFRJ)."},
+    "about": {"title": "Sobre", "body": "O PAVe é um laboratório da UFRJ dedicado ao estudo de vesículas extracelulares."},
+    "research": {"title": "Linhas de Pesquisa", "lines": [{"title": "Vesículas e Comunicação Celular", "description": "Biogênese e papel na comunicação celular."}]},
+    "people": {
+      "title": "Equipe",
+      "PI": {"name": "Prof. Dr. Juliana Rizzo", "role": "PI", "bioPt": "Líder do PAVe com foco em vesículas", "bioEn": "PI bio"},
+      "postdocs": [{"name": "Roberto Guardatti", "role": "Postdoc"}],
+      "phd": [{"name": "Bruna Montalvão", "role": "PhD student"}, {"name": "Adèle Trottier", "role": "PhD student"}],
+      "ic": {"titlePt": "Iniciação Científica", "titleEn": "Undergraduate Research (IC)"}
+    },
+    "publications": {"titlePt": "Publicações", "titleEn": "Publications", "list": []},
+    "contact": {"titlePt": "Contato", "titleEn": "Contact", "email": "", "addressPt": "", "addressEn": ""}
+  },
+  "en": {
+    "home": {"title": "PAVe", "subtitle": "Advanced Research in Extracellular Vesicles", "intro": "Welcome to the PAVe site."},
+    "about": {"title": "About", "body": "PAVe is a UFRJ laboratory studying extracellular vesicles."},
+    "research": {"title": "Research", "lines": [{"title": "Vesicles and Cellular Communication", "description": "Biogenesis and roles in cell signaling."}]},
+    "people": {
+      "title": "People",
+      "PI": {"name": "Prof. Dr. Juliana Rizzo", "role": "PI"},
+      "postdocs": [{"name": "Roberto Guardatti", "role": "Postdoc"}],
+      "phd": [{"name": "Bruna Montalvão", "role": "PhD student"}, {"name": "Adèle Trottier", "role": "PhD student"}],
+      "ic": {"titlePt": "Undergraduate Research", "titleEn": "Undergraduate Research (IC)"}
+    },
+    "publications": {"titlePt": "Publicações", "titleEn": "Publications", "list": []},
+    "contact": {"titlePt": "Contato", "titleEn": "Contact", "email": "", "addressPt": "", "addressEn": ""}
+  }
+}
