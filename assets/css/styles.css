@@ -13,3 +13,7 @@ button:hover { opacity: 0.92; }
   main { padding: 0.75rem; }
   header { padding: 0.5rem; }
 }
+
+/* Language switch styling */
+.lang-switch { display:flex; gap:.5rem; align-items:center; }
+.lang-btn { background:#f3f4f6; border:1px solid #e5e7eb; padding:.25rem .5rem; border-radius:4px; cursor:pointer; }

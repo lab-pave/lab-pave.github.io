@@ -1,0 +1,66 @@
+{
+  "pt": {
+    "home": {
+      "title": "PAVe",
+      "subtitle": "Pesquisas Avançadas em Vesículas Extracelulares",
+      "intro": "Bem-vindo ao site do PAVe (Universidade Federal do Rio de Janeiro). Este site apresenta a equipe, as linhas de pesquisa e atividades."
+    },
+    "about": {
+      "title": "Sobre",
+      "body": "O PAVe é um laboratório da UFRJ dedicado ao estudo das vesículas extracelulares, abordando biogênese, função biológica e aplicações biomédicas."
+    },
+    "research": {
+      "title": "Linhas de Pesquisa",
+      "lines": [
+        {"title": "Vesículas Extracelulares e Comunicação Celular", "description": "Estudos sobre biogênese, conteúdo vesicular e papéis na comunicação entre células."},
+        {"title": "Biotecnologia de Vesículas", "description": "Desenvolvimento de ferramentas para entrega de moléculas e terapias."}
+      ]
+    },
+    "people": {
+      "title": "Equipe",
+      "PI": {"name": "Prof. Dr. Juliana Rizzo", "role": "PI", "bioPt": "Professora Juliana Rizzo lidera o PAVe, com atuação em vesículas extracelulares, biologia celular e aplicações biomédicas.", "bioEn": "Professor Juliana Rizzo leads PAVe with a focus on extracellular vesicles, cellular biology, and biomedical applications."},
+      "postdocs": [
+        {"name": "Roberto Guardatti", "role": "Postdoc", "bioPt": "", "bioEn": ""}
+      ],
+      "phd": [
+        {"name": "Bruna Montalvão", "role": "PhD student", "bioPt": "", "bioEn": ""},
+        {"name": "Adèle Trottier", "role": "PhD student", "bioPt": "", "bioEn": ""}
+      ],
+      "ic": {"titlePt": "Iniciação Científica", "titleEn": "Undergraduate Research (IC)", "students": []}
+    },
+    "publications": {"titlePt": "Publicações", "titleEn": "Publications", "list": []},
+    "contact": {"titlePt": "Contato", "titleEn": "Contact", "email": "", "addressPt": "", "addressEn": ""}
+  },
+  "en": {
+    "home": {
+      "title": "PAVe",
+      "subtitle": "Advanced Research in Extracellular Vesicles",
+      "intro": "Welcome to the PAVe lab site at UFRJ. This site presents our team, research lines, and activities."
+    },
+    "about": {
+      "title": "About",
+      "body": "PAVe is a laboratory at UFRJ focused on extracellular vesicle research."
+    },
+    "research": {
+      "title": "Research",
+      "lines": [
+        {"title": "Vesicles and Intercellular Communication", "description": "Biogenesis, cargo, and roles in cell communication."},
+        {"title": "Vesicle Biotechnology", "description": "Delivery tools and therapeutic applications."}
+      ]
+    },
+    "people": {
+      "title": "People",
+      "PI": {"name": "Prof. Dr. Juliana Rizzo", "role": "PI", "bioPt": "", "bioEn": "Bio in EN"},
+      "postdocs": [
+        {"name": "Roberto Guardatti", "role": "Postdoc", "bioPt": "", "bioEn": ""}
+      ],
+      "phd": [
+        {"name": "Bruna Montalvão", "role": "PhD student", "bioPt": "", "bioEn": ""},
+        {"name": "Adèle Trottier", "role": "PhD student", "bioPt": "", "bioEn": ""}
+      ],
+      "ic": {"titlePt": "Undergraduate Research", "titleEn": "Undergraduate Research (IC)", "students": []}
+    },
+    "publications": {"titlePt": "Publicações", "titleEn": "Publications", "list": []},
+    "contact": {"titlePt": "Contato", "titleEn": "Contact", "email": "", "addressPt": "", "addressEn": ""}
+  }
+}
