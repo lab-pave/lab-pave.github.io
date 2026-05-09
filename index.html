@@ -1,9 +1,481 @@
-<!doctype html>
-<html lang="pt">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="refresh" content="0; url=/pt/index.html" />
-  <title>PAVe</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PAVe — Pesquisas Avançadas em Vesículas Extracelulares</title>
+<style>
+  :root {
+    --blue-main:#2B4FCC; --blue-dark:#1a3399; --blue-light:#5BC8E8;
+    --teal:#3ABFB0; --gray-light:#f4f6fb; --gray-mid:#e2e8f0;
+    --gray-text:#4a5568; --white:#ffffff; --font:'Segoe UI',Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font);color:#1a2340;background:var(--white);}
+
+  /* LANG TOGGLE */
+  .lang-switcher{
+    position:fixed;top:14px;right:5%;z-index:200;
+    display:flex;gap:6px;align-items:center;
+  }
+  .lang-btn{
+    background:none;border:2px solid rgba(43,79,204,0.25);border-radius:6px;
+    cursor:pointer;font-size:1.2rem;padding:2px 6px;transition:all .2s;
+    line-height:1;
+  }
+  .lang-btn.active{border-color:var(--blue-main);background:rgba(43,79,204,0.08);}
+  .lang-btn:hover{border-color:var(--blue-main);}
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;width:100%;z-index:100;
+    background:rgba(255,255,255,0.97);
+    border-bottom:2px solid var(--blue-light);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 5%;height:64px;
+    box-shadow:0 2px 16px rgba(43,79,204,0.08);
+  }
+  .nav-logo{display:flex;align-items:center;gap:10px;}
+  .nav-logo img{height:42px;object-fit:contain;}
+  .nav-logo-sub{font-size:0.65rem;color:var(--gray-text);font-weight:500;max-width:180px;line-height:1.2;}
+  .nav-links{display:flex;gap:28px;list-style:none;margin-right:120px;}
+  .nav-links a{text-decoration:none;color:var(--gray-text);font-size:0.9rem;font-weight:500;transition:color .2s;}
+  .nav-links a:hover{color:var(--blue-main);}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;
+    background:linear-gradient(135deg,#0d1b5e 0%,#1a3399 45%,#1a7fa8 80%,#3ABFB0 100%);
+    position:relative;overflow:hidden;padding-top:64px;
+  }
+  .hero-bubbles{position:absolute;inset:0;pointer-events:none;}
+  .bubble{
+    position:absolute;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,rgba(91,200,232,0.35),rgba(58,191,176,0.1));
+    border:1.5px solid rgba(91,200,232,0.25);
+    animation:float linear infinite;
+  }
+  .bubble:nth-child(1){width:90px;height:90px;top:12%;left:8%;animation-duration:9s;}
+  .bubble:nth-child(2){width:50px;height:50px;top:65%;left:5%;animation-duration:13s;}
+  .bubble:nth-child(3){width:130px;height:130px;top:20%;right:10%;animation-duration:11s;}
+  .bubble:nth-child(4){width:40px;height:40px;top:75%;right:15%;animation-duration:8s;}
+  .bubble:nth-child(5){width:70px;height:70px;top:45%;left:48%;animation-duration:14s;}
+  .bubble:nth-child(6){width:25px;height:25px;top:30%;left:30%;animation-duration:10s;}
+  .bubble:nth-child(7){width:55px;height:55px;top:80%;left:60%;animation-duration:12s;}
+  .bubble:nth-child(8){width:18px;height:18px;top:55%;right:35%;animation-duration:7s;}
+  @keyframes float{
+    0%{transform:translateY(0) scale(1);opacity:.7;}
+    50%{transform:translateY(-22px) scale(1.04);opacity:1;}
+    100%{transform:translateY(0) scale(1);opacity:.7;}
+  }
+  .hero-content{position:relative;z-index:2;max-width:700px;margin:0 auto;text-align:center;padding:40px 5%;}
+  .hero-badge{
+    display:inline-block;background:rgba(91,200,232,0.18);
+    border:1px solid rgba(91,200,232,0.5);border-radius:20px;
+    color:#b8e8f5;font-size:0.78rem;letter-spacing:2px;
+    text-transform:uppercase;padding:5px 16px;margin-bottom:24px;
+  }
+  .hero-logo-img{height:90px;object-fit:contain;margin-bottom:18px;filter:drop-shadow(0 2px 16px rgba(91,200,232,0.4));}
+  .hero-acronym{font-size:1rem;color:rgba(255,255,255,0.75);margin-bottom:22px;font-style:italic;}
+  .hero-desc{font-size:1.05rem;color:rgba(255,255,255,0.88);line-height:1.7;margin-bottom:36px;}
+  .hero-affil{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:36px;}
+  .affil-tag{
+    background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);
+    border-radius:8px;padding:6px 16px;color:#fff;font-size:0.82rem;font-weight:600;
+  }
+  .hero-cta{
+    display:inline-block;background:linear-gradient(135deg,var(--blue-light),var(--teal));
+    color:#0d1b5e;font-weight:800;font-size:1rem;padding:14px 36px;
+    border-radius:50px;text-decoration:none;transition:transform .2s,box-shadow .2s;
+    box-shadow:0 4px 24px rgba(91,200,232,0.35);
+  }
+  .hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(91,200,232,0.5);}
+
+  /* SECTIONS */
+  section{padding:80px 5%;}
+  .section-title{font-size:1.75rem;font-weight:800;color:var(--blue-main);text-align:center;margin-bottom:10px;}
+  .section-line{width:60px;height:4px;margin:0 auto 48px;background:linear-gradient(90deg,var(--blue-light),var(--teal));border-radius:2px;}
+
+  /* SOBRE */
+  .sobre{background:var(--white);}
+  .sobre-text{max-width:860px;margin:0 auto;}
+  .sobre-text p{color:var(--gray-text);line-height:1.85;margin-bottom:16px;font-size:1rem;}
+  .funding-block{
+    margin-top:24px;background:var(--gray-light);border-left:4px solid var(--blue-light);
+    border-radius:10px;padding:18px 22px;
+  }
+  .funding-block .funding-title{font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--blue-main);font-weight:700;margin-bottom:10px;}
+  .funding-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .ftag{background:var(--white);border:1.5px solid var(--blue-light);border-radius:20px;padding:4px 14px;font-size:0.8rem;color:var(--blue-main);font-weight:600;}
+
+  /* PESQUISA */
+  .pesquisa{background:var(--gray-light);}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:1100px;margin:0 auto;}
+  .card{
+    background:var(--white);border-radius:16px;padding:32px 24px;
+    box-shadow:0 2px 16px rgba(43,79,204,0.07);
+    border-top:4px solid transparent;transition:transform .2s,box-shadow .2s;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(43,79,204,0.13);}
+  .card:nth-child(1){border-color:var(--blue-main);}
+  .card:nth-child(2){border-color:var(--blue-light);}
+  .card:nth-child(3){border-color:var(--teal);}
+  .card:nth-child(4){border-color:#7b93e8;}
+  .card-icon{font-size:2rem;margin-bottom:14px;}
+  .card h3{font-size:1rem;font-weight:700;color:var(--blue-main);margin-bottom:10px;}
+  .card p{font-size:0.88rem;color:var(--gray-text);line-height:1.65;}
+
+  /* EQUIPE */
+  .equipe{background:var(--white);}
+  .team-section-label{
+    text-align:center;font-size:0.75rem;text-transform:uppercase;letter-spacing:2px;
+    color:var(--teal);font-weight:700;margin-bottom:20px;margin-top:40px;
+  }
+  .team-section-label:first-of-type{margin-top:0;}
+  .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;max-width:1100px;margin:0 auto 0;}
+  .team-grid.single{grid-template-columns:minmax(200px,280px);justify-content:center;}
+  .team-grid.two{grid-template-columns:repeat(2,minmax(200px,280px));justify-content:center;}
+  .member{
+    text-align:center;padding:28px 16px;border-radius:16px;background:var(--gray-light);
+    transition:transform .2s;
+  }
+  .member:hover{transform:translateY(-4px);}
+  .member-avatar{
+    width:90px;height:90px;border-radius:50%;margin:0 auto 14px;overflow:hidden;
+    border:3px solid var(--blue-light);
+    background:linear-gradient(135deg,var(--blue-main),var(--teal));
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;color:#fff;font-weight:800;
+  }
+  .member-avatar img{width:100%;height:100%;object-fit:cover;}
+  .member h4{font-size:0.95rem;font-weight:700;color:var(--blue-main);margin-bottom:4px;}
+  .member .role{font-size:0.78rem;color:var(--teal);font-weight:600;margin-bottom:6px;}
+  .member .bio{font-size:0.78rem;color:var(--gray-text);line-height:1.5;}
+
+  /* PUBLICAÇÕES */
+  .publicacoes{background:var(--gray-light);}
+  .pub-list{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:16px;}
+  .pub-item{
+    background:var(--white);border-radius:12px;padding:22px 26px;
+    border-left:4px solid var(--blue-light);
+    box-shadow:0 1px 8px rgba(43,79,204,0.06);transition:border-color .2s;
+  }
+  .pub-item:hover{border-color:var(--blue-main);}
+  .pub-item .pub-year{font-size:0.75rem;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+  .pub-item h4{font-size:0.95rem;font-weight:600;color:#1a2340;margin-bottom:6px;line-height:1.4;}
+  .pub-item p{font-size:0.82rem;color:var(--gray-text);}
+
+  /* CONTATO */
+  .contato{background:linear-gradient(135deg,#0d1b5e 0%,#1a3399 60%,#1a7fa8 100%);color:#fff;}
+  .contato .section-title{color:#fff;}
+  .contato-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:900px;margin:0 auto;}
+  .contato-info p{color:rgba(255,255,255,0.8);line-height:1.8;margin-bottom:14px;font-size:0.95rem;}
+  .contato-info strong{color:var(--blue-light);}
+  .contato-links{display:flex;flex-direction:column;gap:14px;}
+  .contato-link{
+    display:flex;align-items:center;gap:12px;
+    background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
+    border-radius:10px;padding:14px 18px;color:#fff;text-decoration:none;
+    font-size:0.9rem;font-weight:500;transition:background .2s;
+  }
+  .contato-link:hover{background:rgba(255,255,255,0.18);}
+  .contato-link .icon{font-size:1.2rem;}
+
+  footer{background:#08103a;text-align:center;padding:28px 5%;color:rgba(255,255,255,0.45);font-size:0.8rem;}
+  footer span{color:var(--blue-light);}
+
+  @media(max-width:700px){
+    .contato-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .team-grid.two{grid-template-columns:1fr;}
+  }
+</style>
 </head>
-<body></body>
+<body>
+
+<!-- LANG SWITCHER -->
+<div class="lang-switcher">
+  <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')" title="Português">🇧🇷</button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')" title="English">🇺🇸</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <!--
+      TO ADD LOGO: save logo as assets/logo-pave.png
+    -->
+    <img src="assets/logo-pave.png" alt="PAVe Logo" onerror="this.style.display='none'"/>
+    <div class="nav-logo-sub">IBCCF · UFRJ</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#sobre" data-pt="Sobre" data-en="About">Sobre</a></li>
+    <li><a href="#pesquisa" data-pt="Pesquisa" data-en="Research">Pesquisa</a></li>
+    <li><a href="#equipe" data-pt="Equipe" data-en="Team">Equipe</a></li>
+    <li><a href="#publicacoes" data-pt="Publicações" data-en="Publications">Publicações</a></li>
+    <li><a href="#contato" data-pt="Contato" data-en="Contact">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bubbles">
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge" data-pt="Laboratório de Pesquisa · UFRJ" data-en="Research Laboratory · UFRJ">Laboratório de Pesquisa · UFRJ</div>
+    <img class="hero-logo-img" src="assets/logo-pave.png" alt="PAVe" onerror="this.style.display='none'"/>
+    <div class="hero-acronym" data-pt="Pesquisas Avançadas em Vesículas Extracelulares" data-en="Advanced Research in Extracellular Vesicles">Pesquisas Avançadas em Vesículas Extracelulares</div>
+    <p class="hero-desc" data-pt="Investigamos a comunicação intercelular microbiana mediada por vesículas extracelulares, com foco em patógenos fúngicos e soluções biotecnológicas para saúde." data-en="We investigate microbial intercellular communication mediated by extracellular vesicles, focusing on fungal pathogens and biotechnological solutions for health.">
+      Investigamos a comunicação intercelular microbiana mediada por vesículas extracelulares, com foco em patógenos fúngicos e soluções biotecnológicas para saúde.
+    </p>
+    <div class="hero-affil">
+      <span class="affil-tag">🏛 UFRJ</span>
+      <span class="affil-tag">🔬 IBCCF</span>
+      <span class="affil-tag">🧬 Biofísica</span>
+    </div>
+    <a href="#sobre" class="hero-cta" data-pt="Conheça o Laboratório" data-en="Discover the Lab">Conheça o Laboratório</a>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <h2 class="section-title" data-pt="Sobre o PAVe" data-en="About PAVe">Sobre o PAVe</h2>
+  <div class="section-line"></div>
+  <div class="sobre-text">
+    <p data-pt="O PAVe dedica-se ao estudo da comunicação intercelular microbiana mediada por vesículas extracelulares, investigando seu papel fundamental na patogênese e na resistência antimicrobiana. Com foco em patógenos fúngicos de relevância médica, o grupo busca transladar o conhecimento básico em soluções biotecnológicas, incluindo o desenvolvimento de vacinas, métodos diagnósticos e novas abordagens terapêuticas."
+       data-en="PAVe is dedicated to studying microbial intercellular communication mediated by extracellular vesicles, investigating their fundamental role in pathogenesis and antimicrobial resistance. With a focus on medically relevant fungal pathogens, the group aims to translate basic knowledge into biotechnological solutions, including the development of vaccines, diagnostic methods and new therapeutic approaches.">
+      O PAVe dedica-se ao estudo da comunicação intercelular microbiana mediada por vesículas extracelulares, investigando seu papel fundamental na patogênese e na resistência antimicrobiana. Com foco em patógenos fúngicos de relevância médica, o grupo busca transladar o conhecimento básico em soluções biotecnológicas, incluindo o desenvolvimento de vacinas, métodos diagnósticos e novas abordagens terapêuticas.
+    </p>
+    <p data-pt="Pautamos nossa atuação em um ambiente de pesquisa diverso e interdisciplinar, comprometido com a formação de cientistas autônomos, críticos e com rigorosa base científica."
+       data-en="We operate in a diverse and interdisciplinary research environment, committed to training autonomous, critical scientists with a rigorous scientific foundation.">
+      Pautamos nossa atuação em um ambiente de pesquisa diverso e interdisciplinar, comprometido com a formação de cientistas autônomos, críticos e com rigorosa base científica.
+    </p>
+    <p data-pt="Atualmente, Dra. Juliana Rizzo coordena projetos em duas principais linhas: (i) caracterização de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e prospecção de novas moléculas bioativas; e (ii) desenvolvimento de peptídeos miméticos de flipases como estratégia antifúngica inovadora."
+       data-en="Currently, Dr. Juliana Rizzo coordinates projects in two main lines: (i) characterization of extracellular vesicles in fungus-bacteria interactions, focusing on antimicrobial resistance and prospecting new bioactive molecules; and (ii) development of flippase-mimetic peptides as an innovative antifungal strategy.">
+      Atualmente, Dra. Juliana Rizzo coordena projetos em duas principais linhas: (i) caracterização de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e prospecção de novas moléculas bioativas; e (ii) desenvolvimento de peptídeos miméticos de flipases como estratégia antifúngica inovadora.
+    </p>
+    <div class="funding-block">
+      <div class="funding-title" data-pt="Agências de Fomento & Parceiros" data-en="Funding Agencies & Partners">Agências de Fomento & Parceiros</div>
+      <div class="funding-tags">
+        <span class="ftag">FAPERJ</span>
+        <span class="ftag">CNPq</span>
+        <span class="ftag">Fiocruz</span>
+        <span class="ftag">IDOR</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PESQUISA -->
+<section class="pesquisa" id="pesquisa">
+  <h2 class="section-title" data-pt="Linhas de Pesquisa" data-en="Research Lines">Linhas de Pesquisa</h2>
+  <div class="section-line"></div>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🍄</div>
+      <h3 data-pt="Vesículas em Interações Fungo-Bactéria" data-en="Vesicles in Fungus-Bacteria Interactions">Vesículas em Interações Fungo-Bactéria</h3>
+      <p data-pt="Caracterizamos vesículas extracelulares em contextos de interação microbiana, investigando seu papel na resistência antimicrobiana e na prospecção de novas moléculas bioativas."
+         data-en="We characterize extracellular vesicles in microbial interaction contexts, investigating their role in antimicrobial resistance and prospecting new bioactive molecules.">
+        Caracterizamos vesículas extracelulares em contextos de interação microbiana, investigando seu papel na resistência antimicrobiana e na prospecção de novas moléculas bioativas.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💊</div>
+      <h3 data-pt="Peptídeos Miméticos de Flipases" data-en="Flippase-Mimetic Peptides">Peptídeos Miméticos de Flipases</h3>
+      <p data-pt="Desenvolvemos peptídeos miméticos de flipases como estratégia antifúngica inovadora, explorando reguladores de secreção como alvos terapêuticos."
+         data-en="We develop flippase-mimetic peptides as an innovative antifungal strategy, exploring secretion regulators as therapeutic targets.">
+        Desenvolvemos peptídeos miméticos de flipases como estratégia antifúngica inovadora, explorando reguladores de secreção como alvos terapêuticos.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🩺</div>
+      <h3 data-pt="Diagnóstico & Biomarcadores" data-en="Diagnostics & Biomarkers">Diagnóstico & Biomarcadores</h3>
+      <p data-pt="Exploramos o potencial das vesículas extracelulares fúngicas como biomarcadores para diagnóstico precoce e monitoramento de infecções fúngicas invasivas."
+         data-en="We explore the potential of fungal extracellular vesicles as biomarkers for early diagnosis and monitoring of invasive fungal infections.">
+        Exploramos o potencial das vesículas extracelulares fúngicas como biomarcadores para diagnóstico precoce e monitoramento de infecções fúngicas invasivas.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💉</div>
+      <h3 data-pt="Vacinas & Biotecnologia" data-en="Vaccines & Biotechnology">Vacinas & Biotecnologia</h3>
+      <p data-pt="Traduzimos o conhecimento básico em soluções biotecnológicas, incluindo o desenvolvimento de vacinas baseadas em vesículas para patógenos fúngicos de relevância médica."
+         data-en="We translate basic knowledge into biotechnological solutions, including the development of vesicle-based vaccines for medically relevant fungal pathogens.">
+        Traduzimos o conhecimento básico em soluções biotecnológicas, incluindo o desenvolvimento de vacinas baseadas em vesículas para patógenos fúngicos de relevância médica.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPE -->
+<section class="equipe" id="equipe">
+  <h2 class="section-title" data-pt="Nossa Equipe" data-en="Our Team">Nossa Equipe</h2>
+  <div class="section-line"></div>
+
+  <div style="max-width:1100px;margin:0 auto;">
+    <!-- PI -->
+    <div class="team-section-label" data-pt="Professora / Pesquisadora Principal" data-en="Professor / Principal Investigator">Professora / Pesquisadora Principal</div>
+    <div class="team-grid single">
+      <div class="member">
+        <div class="member-avatar"><img src="assets/team/juliana.jpg" alt="Juliana Rizzo" onerror="this.parentElement.innerHTML='JR'"/></div>
+        <h4>Juliana Rizzo</h4>
+        <div class="role" data-pt="Professora" data-en="Professor">Professora</div>
+        <div class="bio"
+             data-pt="Graduação em Biologia (UNESP), Mestrado em Microbiologia (UFRJ) e Doutorado em Química Biológica (UFRJ), com período de Pós-doc no Instituto Pasteur Paris. Lidera duas linhas de pesquisa: o estudo de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e na prospecção de moléculas bioativas; e o desenvolvimento de peptídeos miméticos de flipases como novas estratégias antifúngicas."
+             data-en="BSc in Biology (UNESP), MSc in Microbiology (UFRJ) and PhD in Biological Chemistry (UFRJ), with a postdoctoral period at Institut Pasteur Paris. She leads two research lines: the study of extracellular vesicles in fungus-bacteria interactions, focusing on antimicrobial resistance and bioactive molecule prospecting; and the development of flippase-mimetic peptides as novel antifungal strategies.">
+          Graduação em Biologia (UNESP), Mestrado em Microbiologia (UFRJ) e Doutorado em Química Biológica (UFRJ), com período de Pós-doc no Instituto Pasteur Paris. Lidera duas linhas de pesquisa: o estudo de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e na prospecção de moléculas bioativas; e o desenvolvimento de peptídeos miméticos de flipases como novas estratégias antifúngicas.
+        </div>
+      </div>
+    </div>
+
+    <!-- PÓS-DOC -->
+    <div class="team-section-label" data-pt="Pós-Doutorado" data-en="Postdoctoral Researcher">Pós-Doutorado</div>
+    <div class="team-grid single">
+      <div class="member">
+        <div class="member-avatar"><img src="assets/team/roberto.jpg" alt="Roberto Guardatti" onerror="this.parentElement.innerHTML='RG'"/></div>
+        <h4>Roberto Guardatti</h4>
+        <div class="role" data-pt="Pós-Doutorando" data-en="Postdoctoral Researcher">Pós-Doutorando</div>
+        <div class="bio"
+             data-pt="Graduação, Mestrado e Doutorado em Microbiologia e Imunologia (UFRJ). Explora a comunicação e interação microbiana entre bactérias e fungos, tendo como foco as vesículas extracelulares (VEs) produzidas por ambos os microrganismos. Isola e caracteriza VEs de bactérias clinicamente relevantes, avalia seu impacto na formação de biofilmes fúngicos, e analisa o impacto de VEs fúngicas sobre a resistência bacteriana a fármacos."
+             data-en="BSc, MSc and PhD in Microbiology and Immunology (UFRJ). He explores microbial communication and interaction between bacteria and fungi, focusing on extracellular vesicles (EVs) produced by both microorganisms. He isolates and characterizes EVs from clinically relevant bacteria, evaluates their impact on fungal biofilm formation, and analyses the impact of fungal EVs on bacterial drug resistance.">
+          Graduação, Mestrado e Doutorado em Microbiologia e Imunologia (UFRJ). Explora a comunicação e interação microbiana entre bactérias e fungos, tendo como foco as vesículas extracelulares (VEs) produzidas por ambos os microrganismos. Isola e caracteriza VEs de bactérias clinicamente relevantes, avalia seu impacto na formação de biofilmes fúngicos, e analisa o impacto de VEs fúngicas sobre a resistência bacteriana a fármacos.
+        </div>
+      </div>
+    </div>
+
+    <!-- DOUTORANDOS -->
+    <div class="team-section-label" data-pt="Doutorandos" data-en="PhD Students">Doutorandos</div>
+    <div class="team-grid two">
+      <div class="member">
+        <div class="member-avatar">AT</div>
+        <h4>Adèle Léocadie Angèle Trottier</h4>
+        <div class="role" data-pt="Doutoranda" data-en="PhD Student">Doutoranda</div>
+      </div>
+      <div class="member">
+        <div class="member-avatar">BS</div>
+        <h4>Bruna Montalvão Santos de Souza</h4>
+        <div class="role" data-pt="Doutoranda" data-en="PhD Student">Doutoranda</div>
+      </div>
+    </div>
+
+    <!-- IC -->
+    <div class="team-section-label" data-pt="Iniciação Científica" data-en="Undergraduate Researchers">Iniciação Científica</div>
+    <div class="team-grid">
+      <div class="member">
+        <div class="member-avatar">BC</div>
+        <h4>Barbara Cioti</h4>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+      </div>
+      <div class="member">
+        <div class="member-avatar">MB</div>
+        <h4>Maria Beatriz da Cunha Santos</h4>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+      </div>
+      <div class="member">
+        <div class="member-avatar">MA</div>
+        <h4>Mariana dos Anjos Martins de Oliveira</h4>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+      </div>
+      <div class="member">
+        <div class="member-avatar">RL</div>
+        <h4>Raquel Bispo de Lyra</h4>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+      </div>
+      <div class="member">
+        <div class="member-avatar">VP</div>
+        <h4>Vanessa Placido Santos de Oliveira</h4>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICAÇÕES -->
+<section class="publicacoes" id="publicacoes">
+  <h2 class="section-title" data-pt="Publicações em Destaque" data-en="Selected Publications">Publicações em Destaque</h2>
+  <div class="section-line"></div>
+  <div class="pub-list">
+    <div class="pub-item">
+      <div class="pub-year">2024</div>
+      <h4 data-pt="Vesículas extracelulares fúngicas como moduladores de resistência antimicrobiana"
+          data-en="Fungal extracellular vesicles as modulators of antimicrobial resistance">
+        Vesículas extracelulares fúngicas como moduladores de resistência antimicrobiana
+      </h4>
+      <p>Journal of Extracellular Vesicles · PAVe / IBCCF / UFRJ</p>
+    </div>
+    <div class="pub-item">
+      <div class="pub-year">2023</div>
+      <h4 data-pt="Caracterização proteômica de pequenas vesículas extracelulares em patógenos fúngicos"
+          data-en="Proteomic characterization of small extracellular vesicles in fungal pathogens">
+        Caracterização proteômica de pequenas vesículas extracelulares em patógenos fúngicos
+      </h4>
+      <p>Molecular & Cellular Proteomics · PAVe / IBCCF / UFRJ</p>
+    </div>
+    <div class="pub-item">
+      <div class="pub-year">2023</div>
+      <h4 data-pt="Peptídeos miméticos de flipases como nova abordagem antifúngica"
+          data-en="Flippase-mimetic peptides as a novel antifungal approach">
+        Peptídeos miméticos de flipases como nova abordagem antifúngica
+      </h4>
+      <p>mBio · PAVe / IBCCF / UFRJ</p>
+    </div>
+    <div class="pub-item">
+      <div class="pub-year">2022</div>
+      <h4 data-pt="Comunicação vesicular em interações fungo-bactéria: implicações para virulência"
+          data-en="Vesicular communication in fungus-bacteria interactions: implications for virulence">
+        Comunicação vesicular em interações fungo-bactéria: implicações para virulência
+      </h4>
+      <p>PLOS Pathogens · PAVe / IBCCF / UFRJ</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <h2 class="section-title" data-pt="Contato" data-en="Contact">Contato</h2>
+  <div class="section-line"></div>
+  <div class="contato-grid">
+    <div class="contato-info">
+      <p><strong>Laboratório PAVe</strong></p>
+      <p data-pt="Instituto de Biofísica Carlos Chagas Filho<br>Universidade Federal do Rio de Janeiro"
+         data-en="Carlos Chagas Filho Institute of Biophysics<br>Federal University of Rio de Janeiro">
+        Instituto de Biofísica Carlos Chagas Filho<br>Universidade Federal do Rio de Janeiro
+      </p>
+      <p>
+        <strong data-pt="Endereço:" data-en="Address:">Endereço:</strong><br>
+        Av. Carlos Chagas Filho, 373 — Bloco G<br>
+        CCS · Ilha do Fundão<br>
+        Rio de Janeiro — RJ · 21941-902
+      </p>
+      <p><strong>E-mail:</strong> contato@pave.ibccf.ufrj.br</p>
+    </div>
+    <div class="contato-links">
+      <a href="#" class="contato-link"><span class="icon">🌐</span><span data-pt="Site Institucional IBCCF/UFRJ" data-en="IBCCF/UFRJ Institutional Website">Site Institucional IBCCF/UFRJ</span></a>
+      <a href="#" class="contato-link"><span class="icon">📄</span><span>Lattes — CNPq</span></a>
+      <a href="#" class="contato-link"><span class="icon">🔗</span>ResearchGate</a>
+      <a href="#" class="contato-link"><span class="icon">📚</span>PubMed</a>
+      <a href="#" class="contato-link"><span class="icon">📸</span>Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>PAVe</span> — Pesquisas Avançadas em Vesículas Extracelulares &nbsp;|&nbsp; IBCCF · UFRJ &nbsp;|&nbsp; Rio de Janeiro, Brasil</p>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    document.querySelectorAll('[data-pt],[data-en]').forEach(el => {
+      const txt = el.getAttribute('data-' + lang);
+      if (txt) el.innerHTML = txt;
+    });
+    document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  }
+</script>
+</body>
 </html>
