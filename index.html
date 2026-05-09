@@ -39,7 +39,7 @@
   .nav-logo{display:flex;align-items:center;gap:10px;}
   .nav-logo img{height:42px;object-fit:contain;}
   .nav-logo-sub{font-size:0.65rem;color:var(--gray-text);font-weight:500;max-width:180px;line-height:1.2;}
-  .nav-links{display:flex;gap:28px;list-style:none;margin-right:120px;}
+  .nav-links{display:flex;gap:28px;list-style:none;margin-right:100px;}
   .nav-links a{text-decoration:none;color:var(--gray-text);font-size:0.9rem;font-weight:500;transition:color .2s;}
   .nav-links a:hover{color:var(--blue-main);}
 
@@ -142,13 +142,13 @@
   }
   .member:hover{transform:translateY(-4px);}
   .member-avatar{
-    width:90px;height:90px;border-radius:50%;margin:0 auto 14px;overflow:hidden;
+    width:110px;height:110px;border-radius:50%;margin:0 auto 14px;overflow:hidden;
     border:3px solid var(--blue-light);
     background:linear-gradient(135deg,var(--blue-main),var(--teal));
     display:flex;align-items:center;justify-content:center;
     font-size:1.8rem;color:#fff;font-weight:800;
   }
-  .member-avatar img{width:100%;height:100%;object-fit:cover;}
+  .member-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;}
   .member h4{font-size:0.95rem;font-weight:700;color:var(--blue-main);margin-bottom:4px;}
   .member .role{font-size:0.78rem;color:var(--teal);font-weight:600;margin-bottom:6px;}
   .member .bio{font-size:0.78rem;color:var(--gray-text);line-height:1.5;}
@@ -185,10 +185,64 @@
   footer{background:#08103a;text-align:center;padding:28px 5%;color:rgba(255,255,255,0.45);font-size:0.8rem;}
   footer span{color:var(--blue-light);}
 
-  @media(max-width:700px){
-    .contato-grid{grid-template-columns:1fr;}
+  /* ── RESPONSIVE ── */
+  @media(max-width:1024px){
+    .cards-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:768px){
+    nav{padding:0 4%;}
     .nav-links{display:none;}
+    .lang-switcher{top:18px;right:4%;}
+    .hero-content{padding:32px 6%;}
+    .hero-logo-img{height:70px;}
+    section{padding:60px 6%;}
+    .section-title{font-size:1.4rem;}
+    .sobre-text p{font-size:0.95rem;}
+    .cards-grid{grid-template-columns:1fr;}
+    .card{padding:24px 18px;}
+    .team-grid{grid-template-columns:repeat(2,1fr);}
+    .team-grid.single{grid-template-columns:1fr;max-width:280px;}
     .team-grid.two{grid-template-columns:1fr;}
+    .contato-grid{grid-template-columns:1fr;gap:32px;}
+  }
+  @media(max-width:480px){
+    .hero-badge{font-size:0.7rem;letter-spacing:1px;}
+    .hero-acronym{font-size:0.9rem;}
+    .hero-desc{font-size:0.95rem;}
+    .affil-tag{font-size:0.75rem;padding:5px 12px;}
+    .hero-cta{font-size:0.9rem;padding:12px 28px;}
+    .team-grid{grid-template-columns:1fr;}
+    .member-avatar{width:90px;height:90px;}
+    .pub-item{padding:16px 18px;}
+    footer{font-size:0.72rem;}
+  }
+
+  /* ── HAMBURGER MENU ── */
+  .hamburger{
+    display:none;flex-direction:column;gap:5px;cursor:pointer;
+    background:none;border:none;padding:4px;margin-right:110px;
+  }
+  .hamburger span{display:block;width:24px;height:2px;background:var(--blue-main);border-radius:2px;transition:all .3s;}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{
+    display:none;position:fixed;top:64px;left:0;right:0;z-index:99;
+    background:rgba(255,255,255,0.98);border-bottom:2px solid var(--blue-light);
+    box-shadow:0 8px 24px rgba(43,79,204,0.1);
+    flex-direction:column;padding:16px 6%;gap:0;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{
+    text-decoration:none;color:var(--gray-text);font-size:1rem;font-weight:500;
+    padding:14px 0;border-bottom:1px solid var(--gray-mid);transition:color .2s;
+  }
+  .mobile-menu a:last-child{border-bottom:none;}
+  .mobile-menu a:hover{color:var(--blue-main);}
+
+  @media(max-width:768px){
+    .hamburger{display:flex;}
   }
 </style>
 </head>
@@ -203,12 +257,12 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
-    <!--
-      TO ADD LOGO: save logo as assets/logo-pave.png
-    -->
-    <img src="assets/logo-pave.png" alt="PAVe Logo" onerror="this.style.display='none'"/>
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 50'%3E%3Ctext x='4' y='38' font-family='Arial Black,sans-serif' font-weight='900' font-size='36' fill='%232B4FCC'%3EPAVe%3C/text%3E%3C/svg%3E" alt="PAVe Logo"/>
     <div class="nav-logo-sub">IBCCF · UFRJ</div>
   </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
   <ul class="nav-links">
     <li><a href="#sobre" data-pt="Sobre" data-en="About">Sobre</a></li>
     <li><a href="#pesquisa" data-pt="Pesquisa" data-en="Research">Pesquisa</a></li>
@@ -217,6 +271,15 @@
     <li><a href="#contato" data-pt="Contato" data-en="Contact">Contato</a></li>
   </ul>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#sobre" onclick="closeMenu()" data-pt="Sobre" data-en="About">Sobre</a>
+  <a href="#pesquisa" onclick="closeMenu()" data-pt="Pesquisa" data-en="Research">Pesquisa</a>
+  <a href="#equipe" onclick="closeMenu()" data-pt="Equipe" data-en="Team">Equipe</a>
+  <a href="#publicacoes" onclick="closeMenu()" data-pt="Publicações" data-en="Publications">Publicações</a>
+  <a href="#contato" onclick="closeMenu()" data-pt="Contato" data-en="Contact">Contato</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -227,7 +290,8 @@
   </div>
   <div class="hero-content">
     <div class="hero-badge" data-pt="Laboratório de Pesquisa · UFRJ" data-en="Research Laboratory · UFRJ">Laboratório de Pesquisa · UFRJ</div>
-    <img class="hero-logo-img" src="assets/logo-pave.png" alt="PAVe" onerror="this.style.display='none'"/>
+    <!-- Replace src below with actual logo image URL or base64 when available -->
+    <img class="hero-logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80'%3E%3Ctext x='4' y='62' font-family='Arial Black,sans-serif' font-weight='900' font-size='60' fill='%232B4FCC'%3EPAVe%3C/text%3E%3C/svg%3E" alt="PAVe"/>
     <div class="hero-acronym" data-pt="Pesquisas Avançadas em Vesículas Extracelulares" data-en="Advanced Research in Extracellular Vesicles">Pesquisas Avançadas em Vesículas Extracelulares</div>
     <p class="hero-desc" data-pt="Investigamos a comunicação intercelular microbiana mediada por vesículas extracelulares, com foco em patógenos fúngicos e soluções biotecnológicas para saúde." data-en="We investigate microbial intercellular communication mediated by extracellular vesicles, focusing on fungal pathogens and biotechnological solutions for health.">
       Investigamos a comunicação intercelular microbiana mediada por vesículas extracelulares, com foco em patógenos fúngicos e soluções biotecnológicas para saúde.
@@ -320,7 +384,7 @@
     <div class="team-section-label" data-pt="Professora / Pesquisadora Principal" data-en="Professor / Principal Investigator">Professora / Pesquisadora Principal</div>
     <div class="team-grid single">
       <div class="member">
-        <div class="member-avatar"><img src="assets/team/juliana.jpg" alt="Juliana Rizzo" onerror="this.parentElement.innerHTML='JR'"/></div>
+        <div class="member-avatar"><img src="https://i.imgur.com/placeholder_jr.jpg" onerror="this.parentElement.innerHTML='JR'" alt="Juliana Rizzo"/></div>
         <h4>Juliana Rizzo</h4>
         <div class="role" data-pt="Professora" data-en="Professor">Professora</div>
         <div class="bio"
@@ -335,7 +399,7 @@
     <div class="team-section-label" data-pt="Pós-Doutorado" data-en="Postdoctoral Researcher">Pós-Doutorado</div>
     <div class="team-grid single">
       <div class="member">
-        <div class="member-avatar"><img src="assets/team/roberto.jpg" alt="Roberto Guardatti" onerror="this.parentElement.innerHTML='RG'"/></div>
+        <div class="member-avatar">RG</div>
         <h4>Roberto Guardatti</h4>
         <div class="role" data-pt="Pós-Doutorando" data-en="Postdoctoral Researcher">Pós-Doutorando</div>
         <div class="bio"
@@ -347,17 +411,27 @@
     </div>
 
     <!-- DOUTORANDOS -->
-    <div class="team-section-label" data-pt="Doutorandos" data-en="PhD Students">Doutorandos</div>
+    <div class="team-section-label" data-pt="Doutorandas" data-en="PhD Students">Doutorandas</div>
     <div class="team-grid two">
       <div class="member">
         <div class="member-avatar">AT</div>
-        <h4>Adèle Léocadie Angèle Trottier</h4>
+        <h4>Adele Trottier</h4>
         <div class="role" data-pt="Doutoranda" data-en="PhD Student">Doutoranda</div>
+        <div class="bio"
+             data-pt="Tecnólogo em Biotecnologia (Lycée Gallilé), Graduação em Genômica (ENCPB/CNAM), Mestrado em Bioinformática (Université Paris Cité). Seu projeto investiga o papel das VEs na comunicação fúngica-bacteriana, buscando identificar compostos bioativos carregados por essas VEs e seu impacto na fisiologia fúngica e suscetibilidade a medicamentos."
+             data-en="Biotechnology Technologist (Lycée Gallilé), BSc in Genomics (ENCPB/CNAM), MSc in Bioinformatics (Université Paris Cité). Her project investigates the role of EVs in fungal-bacterial communication, seeking to identify bioactive compounds carried by these EVs and their impact on fungal physiology and drug susceptibility.">
+          Tecnólogo em Biotecnologia (Lycée Gallilé), Graduação em Genômica (ENCPB/CNAM), Mestrado em Bioinformática (Université Paris Cité). Seu projeto investiga o papel das VEs na comunicação fúngica-bacteriana, buscando identificar compostos bioativos carregados por essas VEs e seu impacto na fisiologia fúngica e suscetibilidade a medicamentos.
+        </div>
       </div>
       <div class="member">
-        <div class="member-avatar">BS</div>
-        <h4>Bruna Montalvão Santos de Souza</h4>
+        <div class="member-avatar">BM</div>
+        <h4>Bruna Montalvão</h4>
         <div class="role" data-pt="Doutoranda" data-en="PhD Student">Doutoranda</div>
+        <div class="bio"
+             data-pt="Graduação em Ciências Biológicas (UERJ), Mestrado em Imunologia (IBCCF/UFRJ), Doutoranda em Biofísica (IBCCF/UFRJ). Especializada em microscopia de fluorescência, isolamento de VEs e análise de nanopartículas. Seu projeto estuda o perfil de glicosilação de vesículas extracelulares de Candida albicans e sua relevância em processos de patogênese e interação microbiana."
+             data-en="BSc in Biological Sciences (UERJ), MSc in Immunology (IBCCF/UFRJ), PhD student in Biophysics (IBCCF/UFRJ). Specialized in fluorescence microscopy, EV isolation and nanoparticle analysis. Her project studies the glycosylation profile of Candida albicans extracellular vesicles and their relevance in pathogenesis and microbial interaction.">
+          Graduação em Ciências Biológicas (UERJ), Mestrado em Imunologia (IBCCF/UFRJ), Doutoranda em Biofísica (IBCCF/UFRJ). Especializada em microscopia de fluorescência, isolamento de VEs e análise de nanopartículas. Seu projeto estuda o perfil de glicosilação de vesículas extracelulares de Candida albicans e sua relevância em processos de patogênese e interação microbiana.
+        </div>
       </div>
     </div>
 
@@ -365,29 +439,54 @@
     <div class="team-section-label" data-pt="Iniciação Científica" data-en="Undergraduate Researchers">Iniciação Científica</div>
     <div class="team-grid">
       <div class="member">
+        <div class="member-avatar">VP</div>
+        <h4>Vanessa Placido</h4>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+        <div class="bio"
+             data-pt="Graduação em Ciências Biológicas: Microbiologia e Imunologia (UFRJ). Analisa os mecanismos moleculares das interações mediadas por Vesículas Extracelulares entre Candida albicans e Escherichia coli."
+             data-en="BSc in Biological Sciences: Microbiology and Immunology (UFRJ). Analyses the molecular mechanisms of Extracellular Vesicle-mediated interactions between Candida albicans and Escherichia coli.">
+          Graduação em Ciências Biológicas: Microbiologia e Imunologia (UFRJ). Analisa os mecanismos moleculares das interações mediadas por Vesículas Extracelulares entre Candida albicans e Escherichia coli.
+        </div>
+      </div>
+      <div class="member">
+        <div class="member-avatar">RB</div>
+        <h4>Raquel Bispo</h4>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+        <div class="bio"
+             data-pt="Graduação em Farmácia (UFRJ). Atua nos experimentos de Co-Cultura entre espécies de fungos e bactérias gram-negativas, analisando se há Cooperação, Neutralismo ou Inibição entre as espécies."
+             data-en="BSc in Pharmacy (UFRJ). Conducts Co-Culture experiments between fungal species and gram-negative bacteria, analysing whether there is Cooperation, Neutralism or Inhibition between the species.">
+          Graduação em Farmácia (UFRJ). Atua nos experimentos de Co-Cultura entre espécies de fungos e bactérias gram-negativas, analisando se há Cooperação, Neutralismo ou Inibição entre as espécies.
+        </div>
+      </div>
+      <div class="member">
         <div class="member-avatar">BC</div>
         <h4>Barbara Cioti</h4>
         <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+        <div class="bio"
+             data-pt="Graduação em Farmácia (UFRJ). Atuando no Projeto Flip, analisa o efeito antifúngico do Peptídeo Flip contra Cryptococcus spp. e Candida spp."
+             data-en="BSc in Pharmacy (UFRJ). Working on the Flip Project, she analyses the antifungal effect of the Flip Peptide against Cryptococcus spp. and Candida spp.">
+          Graduação em Farmácia (UFRJ). Atuando no Projeto Flip, analisa o efeito antifúngico do Peptídeo Flip contra Cryptococcus spp. e Candida spp.
+        </div>
       </div>
       <div class="member">
         <div class="member-avatar">MB</div>
-        <h4>Maria Beatriz da Cunha Santos</h4>
+        <h4>Maria Beatriz da Cunha</h4>
         <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+        <div class="bio"
+             data-pt="Graduação em Farmácia (UFRJ). Estuda a interação fungo-bactéria, especialmente por meio de co-cultivos e análise de vesículas extracelulares."
+             data-en="BSc in Pharmacy (UFRJ). Studies fungus-bacteria interaction, especially through co-cultures and extracellular vesicle analysis.">
+          Graduação em Farmácia (UFRJ). Estuda a interação fungo-bactéria, especialmente por meio de co-cultivos e análise de vesículas extracelulares.
+        </div>
       </div>
       <div class="member">
         <div class="member-avatar">MA</div>
-        <h4>Mariana dos Anjos Martins de Oliveira</h4>
+        <h4>Mariana dos Anjos</h4>
         <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
-      </div>
-      <div class="member">
-        <div class="member-avatar">RL</div>
-        <h4>Raquel Bispo de Lyra</h4>
-        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
-      </div>
-      <div class="member">
-        <div class="member-avatar">VP</div>
-        <h4>Vanessa Placido Santos de Oliveira</h4>
-        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+        <div class="bio"
+             data-pt="Graduação em Ciências Biológicas: Microbiologia e Imunologia (UFRJ). Analisa os análogos de Flipases como novos alvos de terapia antifúngica."
+             data-en="BSc in Biological Sciences: Microbiology and Immunology (UFRJ). Analyses flippase analogues as novel antifungal therapy targets.">
+          Graduação em Ciências Biológicas: Microbiologia e Imunologia (UFRJ). Analisa os análogos de Flipases como novos alvos de terapia antifúngica.
+        </div>
       </div>
     </div>
   </div>
@@ -400,34 +499,22 @@
   <div class="pub-list">
     <div class="pub-item">
       <div class="pub-year">2024</div>
-      <h4 data-pt="Vesículas extracelulares fúngicas como moduladores de resistência antimicrobiana"
-          data-en="Fungal extracellular vesicles as modulators of antimicrobial resistance">
-        Vesículas extracelulares fúngicas como moduladores de resistência antimicrobiana
-      </h4>
+      <h4 data-pt="Vesículas extracelulares fúngicas como moduladores de resistência antimicrobiana" data-en="Fungal extracellular vesicles as modulators of antimicrobial resistance">Vesículas extracelulares fúngicas como moduladores de resistência antimicrobiana</h4>
       <p>Journal of Extracellular Vesicles · PAVe / IBCCF / UFRJ</p>
     </div>
     <div class="pub-item">
       <div class="pub-year">2023</div>
-      <h4 data-pt="Caracterização proteômica de pequenas vesículas extracelulares em patógenos fúngicos"
-          data-en="Proteomic characterization of small extracellular vesicles in fungal pathogens">
-        Caracterização proteômica de pequenas vesículas extracelulares em patógenos fúngicos
-      </h4>
+      <h4 data-pt="Caracterização proteômica de pequenas vesículas extracelulares em patógenos fúngicos" data-en="Proteomic characterization of small extracellular vesicles in fungal pathogens">Caracterização proteômica de pequenas vesículas extracelulares em patógenos fúngicos</h4>
       <p>Molecular & Cellular Proteomics · PAVe / IBCCF / UFRJ</p>
     </div>
     <div class="pub-item">
       <div class="pub-year">2023</div>
-      <h4 data-pt="Peptídeos miméticos de flipases como nova abordagem antifúngica"
-          data-en="Flippase-mimetic peptides as a novel antifungal approach">
-        Peptídeos miméticos de flipases como nova abordagem antifúngica
-      </h4>
+      <h4 data-pt="Peptídeos miméticos de flipases como nova abordagem antifúngica" data-en="Flippase-mimetic peptides as a novel antifungal approach">Peptídeos miméticos de flipases como nova abordagem antifúngica</h4>
       <p>mBio · PAVe / IBCCF / UFRJ</p>
     </div>
     <div class="pub-item">
       <div class="pub-year">2022</div>
-      <h4 data-pt="Comunicação vesicular em interações fungo-bactéria: implicações para virulência"
-          data-en="Vesicular communication in fungus-bacteria interactions: implications for virulence">
-        Comunicação vesicular em interações fungo-bactéria: implicações para virulência
-      </h4>
+      <h4 data-pt="Comunicação vesicular em interações fungo-bactéria: implicações para virulência" data-en="Vesicular communication in fungus-bacteria interactions: implications for virulence">Comunicação vesicular em interações fungo-bactéria: implicações para virulência</h4>
       <p>PLOS Pathogens · PAVe / IBCCF / UFRJ</p>
     </div>
   </div>
@@ -454,7 +541,7 @@
     </div>
     <div class="contato-links">
       <a href="#" class="contato-link"><span class="icon">🌐</span><span data-pt="Site Institucional IBCCF/UFRJ" data-en="IBCCF/UFRJ Institutional Website">Site Institucional IBCCF/UFRJ</span></a>
-      <a href="#" class="contato-link"><span class="icon">📄</span><span>Lattes — CNPq</span></a>
+      <a href="#" class="contato-link"><span class="icon">📄</span><span data-pt="Lattes — CNPq" data-en="Lattes — CNPq">Lattes — CNPq</span></a>
       <a href="#" class="contato-link"><span class="icon">🔗</span>ResearchGate</a>
       <a href="#" class="contato-link"><span class="icon">📚</span>PubMed</a>
       <a href="#" class="contato-link"><span class="icon">📸</span>Instagram</a>
@@ -467,14 +554,24 @@
 </footer>
 
 <script>
-  function setLang(lang) {
+  function toggleMenu(){
+    const h=document.getElementById('hamburger');
+    const m=document.getElementById('mobileMenu');
+    h.classList.toggle('open');
+    m.classList.toggle('open');
+  }
+  function closeMenu(){
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+  function setLang(lang){
     document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
     document.querySelectorAll('[data-pt],[data-en]').forEach(el => {
       const txt = el.getAttribute('data-' + lang);
-      if (txt) el.innerHTML = txt;
+      if(txt) el.innerHTML = txt;
     });
-    document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-pt').classList.toggle('active', lang==='pt');
+    document.getElementById('btn-en').classList.toggle('active', lang==='en');
   }
 </script>
 </body>
