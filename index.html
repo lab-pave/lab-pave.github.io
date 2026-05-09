@@ -43,18 +43,17 @@
     .bubble{display:none;}
   }
 
-  /* LANG TOGGLE */
+  /* LANG TOGGLE — sits inside nav, no longer fixed */
   .lang-switcher{
-    position:fixed;top:14px;right:5%;z-index:200;
     display:flex;gap:6px;align-items:center;
   }
   .lang-btn{
     background:none;border:2px solid rgba(43,79,204,0.25);border-radius:6px;
-    cursor:pointer;font-size:0.85rem;padding:4px 9px;transition:all .2s;
-    line-height:1;display:inline-flex;align-items:center;gap:4px;
+    cursor:pointer;font-size:0.78rem;padding:4px 8px;transition:all .2s;
+    line-height:1;display:inline-flex;align-items:center;gap:5px;
     font-weight:600;color:var(--blue-main);
   }
-  .lang-btn .flag{font-size:1rem;line-height:1;}
+  .lang-btn .flag{font-size:0.95rem;line-height:1;}
   .lang-btn.active{border-color:var(--blue-main);background:rgba(43,79,204,0.08);}
   .lang-btn:hover{border-color:var(--blue-main);}
 
@@ -63,14 +62,14 @@
     position:fixed;top:0;width:100%;z-index:100;
     background:rgba(255,255,255,0.97);
     border-bottom:2px solid var(--blue-light);
-    display:flex;align-items:center;justify-content:space-between;
+    display:flex;align-items:center;gap:24px;
     padding:0 5%;height:64px;
     box-shadow:0 2px 16px rgba(43,79,204,0.08);
   }
-  .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;}
+  .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;flex-shrink:0;}
   .nav-logo img{height:42px;object-fit:contain;}
   .nav-logo-sub{font-size:0.65rem;color:var(--gray-text);font-weight:500;max-width:180px;line-height:1.2;}
-  .nav-links{display:flex;gap:28px;list-style:none;margin-right:100px;}
+  .nav-links{display:flex;gap:28px;list-style:none;margin-left:auto;}
   .nav-links a{text-decoration:none;color:var(--gray-text);font-size:0.9rem;font-weight:500;transition:color .2s;}
   .nav-links a:hover{color:var(--blue-main);}
 
@@ -133,12 +132,20 @@
   .sobre-text{max-width:860px;margin:0 auto;}
   .sobre-text p{color:var(--gray-text);line-height:1.85;margin-bottom:16px;font-size:1rem;}
   .funding-block{
-    margin-top:24px;background:var(--gray-light);border-left:4px solid var(--blue-light);
-    border-radius:10px;padding:18px 22px;
+    margin-top:24px;background:linear-gradient(135deg,#0d1b5e,#1a3399);border-left:4px solid var(--blue-light);
+    border-radius:10px;padding:22px 26px;color:#fff;
   }
-  .funding-block .funding-title{font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--blue-main);font-weight:700;margin-bottom:10px;}
-  .funding-tags{display:flex;flex-wrap:wrap;gap:8px;}
-  .ftag{background:var(--white);border:1.5px solid var(--blue-light);border-radius:20px;padding:4px 14px;font-size:0.8rem;color:var(--blue-main);font-weight:600;}
+  .funding-block .funding-title{font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--blue-light);font-weight:700;margin-bottom:14px;}
+  .funding-tags{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+  .ftag{
+    background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.25);
+    border-radius:24px;padding:8px 16px;font-size:0.8rem;color:#fff;font-weight:600;
+    text-decoration:none;display:inline-flex;align-items:center;gap:8px;height:44px;
+    transition:background .2s,border-color .2s,transform .2s;
+  }
+  a.ftag:hover{background:rgba(255,255,255,0.18);border-color:var(--blue-light);transform:translateY(-2px);}
+  .ftag img{height:24px;width:auto;display:block;}
+  .ftag.ftag-text-only{padding:8px 18px;}
 
   /* PESQUISA */
   .pesquisa{background:var(--gray-light);}
@@ -237,9 +244,10 @@
     .cards-grid{grid-template-columns:repeat(2,1fr);}
   }
   @media(max-width:768px){
-    nav{padding:0 4%;}
+    nav{padding:0 4%;gap:12px;}
     .nav-links{display:none;}
-    .lang-switcher{top:18px;right:4%;}
+    .lang-switcher{margin-left:auto;}
+    .lang-btn{padding:4px 7px;font-size:0.72rem;gap:4px;}
     .hero-content{padding:32px 6%;}
     .hero-logo-img{height:70px;}
     section{padding:60px 6%;}
@@ -268,7 +276,7 @@
   /* ── HAMBURGER MENU ── */
   .hamburger{
     display:none;flex-direction:column;gap:5px;cursor:pointer;
-    background:none;border:none;padding:4px;margin-right:110px;
+    background:none;border:none;padding:4px;
   }
   .hamburger span{display:block;width:24px;height:2px;background:var(--blue-main);border-radius:2px;transition:all .3s;}
   .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -297,13 +305,7 @@
 <body>
 
 <!-- SKIP LINK -->
-<a class="skip-link" href="#sobre" data-pt="Pular para o conteúdo" data-en="Skip to content">Pular para o conteúdo</a>
-
-<!-- LANG SWITCHER -->
-<div class="lang-switcher" role="group" aria-label="Language selector">
-  <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')" aria-label="Mudar para Português" title="Português"><span class="flag" aria-hidden="true">🇧🇷</span><span>PT</span></button>
-  <button class="lang-btn" id="btn-en" onclick="setLang('en')" aria-label="Switch to English" title="English"><span class="flag" aria-hidden="true">🇺🇸</span><span>EN</span></button>
-</div>
+<a class="skip-link" href="#sobre" data-pt="Pular para o conteúdo" data-en="Skip to content" data-fr="Aller au contenu">Pular para o conteúdo</a>
 
 <!-- NAV -->
 <nav>
@@ -311,25 +313,30 @@
     <img src="assets/logo-pave.png" alt="PAVe Logo"/>
     <div class="nav-logo-sub">IBCCF · UFRJ</div>
   </a>
+  <ul class="nav-links">
+    <li><a href="#sobre" data-pt="Sobre" data-en="About" data-fr="À propos">Sobre</a></li>
+    <li><a href="#pesquisa" data-pt="Pesquisa" data-en="Research" data-fr="Recherche">Pesquisa</a></li>
+    <li><a href="#equipe" data-pt="Equipe" data-en="Team" data-fr="Équipe">Equipe</a></li>
+    <li><a href="#publicacoes" data-pt="Publicações" data-en="Publications" data-fr="Publications">Publicações</a></li>
+    <li><a href="#contato" data-pt="Contato" data-en="Contact" data-fr="Contact">Contato</a></li>
+  </ul>
+  <div class="lang-switcher" role="group" aria-label="Language selector">
+    <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')" aria-label="Mudar para Português" title="Português"><span class="flag" aria-hidden="true">🇧🇷</span><span>PT</span></button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')" aria-label="Switch to English" title="English"><span class="flag" aria-hidden="true">🇺🇸</span><span>EN</span></button>
+    <button class="lang-btn" id="btn-fr" onclick="setLang('fr')" aria-label="Passer au français" title="Français"><span class="flag" aria-hidden="true">🇫🇷</span><span>FR</span></button>
+  </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-  <ul class="nav-links">
-    <li><a href="#sobre" data-pt="Sobre" data-en="About">Sobre</a></li>
-    <li><a href="#pesquisa" data-pt="Pesquisa" data-en="Research">Pesquisa</a></li>
-    <li><a href="#equipe" data-pt="Equipe" data-en="Team">Equipe</a></li>
-    <li><a href="#publicacoes" data-pt="Publicações" data-en="Publications">Publicações</a></li>
-    <li><a href="#contato" data-pt="Contato" data-en="Contact">Contato</a></li>
-  </ul>
 </nav>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#sobre" onclick="closeMenu()" data-pt="Sobre" data-en="About">Sobre</a>
-  <a href="#pesquisa" onclick="closeMenu()" data-pt="Pesquisa" data-en="Research">Pesquisa</a>
-  <a href="#equipe" onclick="closeMenu()" data-pt="Equipe" data-en="Team">Equipe</a>
-  <a href="#publicacoes" onclick="closeMenu()" data-pt="Publicações" data-en="Publications">Publicações</a>
-  <a href="#contato" onclick="closeMenu()" data-pt="Contato" data-en="Contact">Contato</a>
+  <a href="#sobre" onclick="closeMenu()" data-pt="Sobre" data-en="About" data-fr="À propos">Sobre</a>
+  <a href="#pesquisa" onclick="closeMenu()" data-pt="Pesquisa" data-en="Research" data-fr="Recherche">Pesquisa</a>
+  <a href="#equipe" onclick="closeMenu()" data-pt="Equipe" data-en="Team" data-fr="Équipe">Equipe</a>
+  <a href="#publicacoes" onclick="closeMenu()" data-pt="Publicações" data-en="Publications" data-fr="Publications">Publicações</a>
+  <a href="#contato" onclick="closeMenu()" data-pt="Contato" data-en="Contact" data-fr="Contact">Contato</a>
 </div>
 
 <!-- HERO -->
@@ -340,45 +347,51 @@
     <div class="bubble"></div><div class="bubble"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-badge" data-pt="Laboratório de Pesquisa · UFRJ" data-en="Research Laboratory · UFRJ">Laboratório de Pesquisa · UFRJ</div>
+    <div class="hero-badge" data-pt="Laboratório de Pesquisa · UFRJ" data-en="Research Laboratory · UFRJ" data-fr="Laboratoire de Recherche · UFRJ">Laboratório de Pesquisa · UFRJ</div>
     <img class="hero-logo-img" src="assets/logo-pave.png" alt="PAVe"/>
-    <div class="hero-acronym" data-pt="Pesquisas Avançadas em Vesículas Extracelulares" data-en="Advanced Research in Extracellular Vesicles">Pesquisas Avançadas em Vesículas Extracelulares</div>
-    <p class="hero-desc" data-pt="Investigamos a comunicação intercelular microbiana mediada por vesículas extracelulares, com foco em patógenos fúngicos e soluções biotecnológicas para saúde." data-en="We investigate microbial intercellular communication mediated by extracellular vesicles, focusing on fungal pathogens and biotechnological solutions for health.">
+    <div class="hero-acronym" data-pt="Pesquisas Avançadas em Vesículas Extracelulares" data-en="Advanced Research in Extracellular Vesicles" data-fr="Recherches Avancées en Vésicules Extracellulaires">Pesquisas Avançadas em Vesículas Extracelulares</div>
+    <p class="hero-desc"
+       data-pt="Investigamos a comunicação intercelular microbiana mediada por vesículas extracelulares, com foco em patógenos fúngicos e soluções biotecnológicas para saúde."
+       data-en="We investigate microbial intercellular communication mediated by extracellular vesicles, focusing on fungal pathogens and biotechnological solutions for health."
+       data-fr="Nous étudions la communication intercellulaire microbienne médiée par les vésicules extracellulaires, en nous concentrant sur les pathogènes fongiques et les solutions biotechnologiques pour la santé.">
       Investigamos a comunicação intercelular microbiana mediada por vesículas extracelulares, com foco em patógenos fúngicos e soluções biotecnológicas para saúde.
     </p>
     <div class="hero-affil">
       <span class="affil-tag">🏛 UFRJ</span>
       <span class="affil-tag">🔬 IBCCF</span>
-      <span class="affil-tag">🧬 Biofísica</span>
+      <span class="affil-tag" data-pt="🧬 Biofísica" data-en="🧬 Biophysics" data-fr="🧬 Biophysique">🧬 Biofísica</span>
     </div>
-    <a href="#sobre" class="hero-cta" data-pt="Conheça o Laboratório" data-en="Discover the Lab">Conheça o Laboratório</a>
+    <a href="#sobre" class="hero-cta" data-pt="Conheça o Laboratório" data-en="Discover the Lab" data-fr="Découvrir le laboratoire">Conheça o Laboratório</a>
   </div>
 </section>
 
 <!-- SOBRE -->
 <section class="sobre" id="sobre">
-  <h2 class="section-title" data-pt="Sobre o PAVe" data-en="About PAVe">Sobre o PAVe</h2>
+  <h2 class="section-title" data-pt="Sobre o PAVe" data-en="About PAVe" data-fr="À propos du PAVe">Sobre o PAVe</h2>
   <div class="section-line"></div>
   <div class="sobre-text">
     <p data-pt="O PAVe dedica-se ao estudo da comunicação intercelular microbiana mediada por vesículas extracelulares, investigando seu papel fundamental na patogênese e na resistência antimicrobiana. Com foco em patógenos fúngicos de relevância médica, o grupo busca transladar o conhecimento básico em soluções biotecnológicas, incluindo o desenvolvimento de vacinas, métodos diagnósticos e novas abordagens terapêuticas."
-       data-en="PAVe is dedicated to studying microbial intercellular communication mediated by extracellular vesicles, investigating their fundamental role in pathogenesis and antimicrobial resistance. With a focus on medically relevant fungal pathogens, the group aims to translate basic knowledge into biotechnological solutions, including the development of vaccines, diagnostic methods and new therapeutic approaches.">
+       data-en="PAVe is dedicated to studying microbial intercellular communication mediated by extracellular vesicles, investigating their fundamental role in pathogenesis and antimicrobial resistance. With a focus on medically relevant fungal pathogens, the group aims to translate basic knowledge into biotechnological solutions, including the development of vaccines, diagnostic methods and new therapeutic approaches."
+       data-fr="Le PAVe se consacre à l'étude de la communication intercellulaire microbienne médiée par les vésicules extracellulaires, en étudiant leur rôle fondamental dans la pathogenèse et la résistance antimicrobienne. Avec un focus sur les pathogènes fongiques d'intérêt médical, le groupe vise à traduire les connaissances fondamentales en solutions biotechnologiques, incluant le développement de vaccins, de méthodes de diagnostic et de nouvelles approches thérapeutiques.">
       O PAVe dedica-se ao estudo da comunicação intercelular microbiana mediada por vesículas extracelulares, investigando seu papel fundamental na patogênese e na resistência antimicrobiana. Com foco em patógenos fúngicos de relevância médica, o grupo busca transladar o conhecimento básico em soluções biotecnológicas, incluindo o desenvolvimento de vacinas, métodos diagnósticos e novas abordagens terapêuticas.
     </p>
     <p data-pt="Pautamos nossa atuação em um ambiente de pesquisa diverso e interdisciplinar, comprometido com a formação de cientistas autônomos, críticos e com rigorosa base científica."
-       data-en="We operate in a diverse and interdisciplinary research environment, committed to training autonomous, critical scientists with a rigorous scientific foundation.">
+       data-en="We operate in a diverse and interdisciplinary research environment, committed to training autonomous, critical scientists with a rigorous scientific foundation."
+       data-fr="Nous travaillons dans un environnement de recherche diversifié et interdisciplinaire, engagé dans la formation de scientifiques autonomes, critiques et dotés de bases scientifiques rigoureuses.">
       Pautamos nossa atuação em um ambiente de pesquisa diverso e interdisciplinar, comprometido com a formação de cientistas autônomos, críticos e com rigorosa base científica.
     </p>
     <p data-pt="Atualmente, Dra. Juliana Rizzo coordena projetos em duas principais linhas: (i) caracterização de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e prospecção de novas moléculas bioativas; e (ii) desenvolvimento de peptídeos miméticos de flipases como estratégia antifúngica inovadora."
-       data-en="Currently, Dr. Juliana Rizzo coordinates projects in two main lines: (i) characterization of extracellular vesicles in fungus-bacteria interactions, focusing on antimicrobial resistance and prospecting new bioactive molecules; and (ii) development of flippase-mimetic peptides as an innovative antifungal strategy.">
+       data-en="Currently, Dr. Juliana Rizzo coordinates projects in two main lines: (i) characterization of extracellular vesicles in fungus-bacteria interactions, focusing on antimicrobial resistance and prospecting new bioactive molecules; and (ii) development of flippase-mimetic peptides as an innovative antifungal strategy."
+       data-fr="Actuellement, la Dre Juliana Rizzo coordonne des projets sur deux axes principaux : (i) la caractérisation des vésicules extracellulaires dans les interactions champignon-bactérie, avec un focus sur la résistance antimicrobienne et la prospection de nouvelles molécules bioactives ; et (ii) le développement de peptides mimétiques de flippases comme stratégie antifongique innovante.">
       Atualmente, Dra. Juliana Rizzo coordena projetos em duas principais linhas: (i) caracterização de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e prospecção de novas moléculas bioativas; e (ii) desenvolvimento de peptídeos miméticos de flipases como estratégia antifúngica inovadora.
     </p>
     <div class="funding-block">
-      <div class="funding-title" data-pt="Agências de Fomento & Parceiros" data-en="Funding Agencies & Partners">Agências de Fomento & Parceiros</div>
+      <div class="funding-title" data-pt="Agências de Fomento & Parceiros" data-en="Funding Agencies & Partners" data-fr="Agences de Financement & Partenaires">Agências de Fomento & Parceiros</div>
       <div class="funding-tags">
-        <span class="ftag">FAPERJ</span>
-        <span class="ftag">CNPq</span>
-        <span class="ftag">Fiocruz</span>
-        <span class="ftag">IDOR</span>
+        <a class="ftag" href="https://www.faperj.br/" target="_blank" rel="noopener" aria-label="FAPERJ"><img src="assets/sponsors/faperj.png" alt="FAPERJ"/></a>
+        <a class="ftag ftag-text-only" href="https://www.gov.br/cnpq/pt-br" target="_blank" rel="noopener">CNPq</a>
+        <a class="ftag" href="https://fiocruz.br/" target="_blank" rel="noopener" aria-label="Fiocruz"><img src="assets/sponsors/fiocruz.png" alt="Fiocruz"/></a>
+        <a class="ftag" href="https://www.rededorsaoluiz.com.br/instituto/idor/" target="_blank" rel="noopener" aria-label="IDOR"><img src="assets/sponsors/idor.svg" alt="IDOR"/></a>
       </div>
     </div>
   </div>
@@ -386,38 +399,42 @@
 
 <!-- PESQUISA -->
 <section class="pesquisa" id="pesquisa">
-  <h2 class="section-title" data-pt="Linhas de Pesquisa" data-en="Research Lines">Linhas de Pesquisa</h2>
+  <h2 class="section-title" data-pt="Linhas de Pesquisa" data-en="Research Lines" data-fr="Axes de Recherche">Linhas de Pesquisa</h2>
   <div class="section-line"></div>
   <div class="cards-grid">
     <div class="card">
       <div class="card-icon">🍄</div>
-      <h3 data-pt="Vesículas em Interações Fungo-Bactéria" data-en="Vesicles in Fungus-Bacteria Interactions">Vesículas em Interações Fungo-Bactéria</h3>
+      <h3 data-pt="Vesículas em Interações Fungo-Bactéria" data-en="Vesicles in Fungus-Bacteria Interactions" data-fr="Vésicules dans les Interactions Champignon-Bactérie">Vesículas em Interações Fungo-Bactéria</h3>
       <p data-pt="Caracterizamos vesículas extracelulares em contextos de interação microbiana, investigando seu papel na resistência antimicrobiana e na prospecção de novas moléculas bioativas."
-         data-en="We characterize extracellular vesicles in microbial interaction contexts, investigating their role in antimicrobial resistance and prospecting new bioactive molecules.">
+         data-en="We characterize extracellular vesicles in microbial interaction contexts, investigating their role in antimicrobial resistance and prospecting new bioactive molecules."
+         data-fr="Nous caractérisons les vésicules extracellulaires dans des contextes d'interaction microbienne, en étudiant leur rôle dans la résistance antimicrobienne et la prospection de nouvelles molécules bioactives.">
         Caracterizamos vesículas extracelulares em contextos de interação microbiana, investigando seu papel na resistência antimicrobiana e na prospecção de novas moléculas bioativas.
       </p>
     </div>
     <div class="card">
       <div class="card-icon">💊</div>
-      <h3 data-pt="Peptídeos Miméticos de Flipases" data-en="Flippase-Mimetic Peptides">Peptídeos Miméticos de Flipases</h3>
+      <h3 data-pt="Peptídeos Miméticos de Flipases" data-en="Flippase-Mimetic Peptides" data-fr="Peptides Mimétiques de Flippases">Peptídeos Miméticos de Flipases</h3>
       <p data-pt="Desenvolvemos peptídeos miméticos de flipases como estratégia antifúngica inovadora, explorando reguladores de secreção como alvos terapêuticos."
-         data-en="We develop flippase-mimetic peptides as an innovative antifungal strategy, exploring secretion regulators as therapeutic targets.">
+         data-en="We develop flippase-mimetic peptides as an innovative antifungal strategy, exploring secretion regulators as therapeutic targets."
+         data-fr="Nous développons des peptides mimétiques de flippases comme stratégie antifongique innovante, en explorant les régulateurs de sécrétion comme cibles thérapeutiques.">
         Desenvolvemos peptídeos miméticos de flipases como estratégia antifúngica inovadora, explorando reguladores de secreção como alvos terapêuticos.
       </p>
     </div>
     <div class="card">
       <div class="card-icon">🩺</div>
-      <h3 data-pt="Diagnóstico & Biomarcadores" data-en="Diagnostics & Biomarkers">Diagnóstico & Biomarcadores</h3>
+      <h3 data-pt="Diagnóstico & Biomarcadores" data-en="Diagnostics & Biomarkers" data-fr="Diagnostic & Biomarqueurs">Diagnóstico & Biomarcadores</h3>
       <p data-pt="Exploramos o potencial das vesículas extracelulares fúngicas como biomarcadores para diagnóstico precoce e monitoramento de infecções fúngicas invasivas."
-         data-en="We explore the potential of fungal extracellular vesicles as biomarkers for early diagnosis and monitoring of invasive fungal infections.">
+         data-en="We explore the potential of fungal extracellular vesicles as biomarkers for early diagnosis and monitoring of invasive fungal infections."
+         data-fr="Nous explorons le potentiel des vésicules extracellulaires fongiques comme biomarqueurs pour le diagnostic précoce et le suivi des infections fongiques invasives.">
         Exploramos o potencial das vesículas extracelulares fúngicas como biomarcadores para diagnóstico precoce e monitoramento de infecções fúngicas invasivas.
       </p>
     </div>
     <div class="card">
       <div class="card-icon">💉</div>
-      <h3 data-pt="Vacinas & Biotecnologia" data-en="Vaccines & Biotechnology">Vacinas & Biotecnologia</h3>
+      <h3 data-pt="Vacinas & Biotecnologia" data-en="Vaccines & Biotechnology" data-fr="Vaccins & Biotechnologie">Vacinas & Biotecnologia</h3>
       <p data-pt="Traduzimos o conhecimento básico em soluções biotecnológicas, incluindo o desenvolvimento de vacinas baseadas em vesículas para patógenos fúngicos de relevância médica."
-         data-en="We translate basic knowledge into biotechnological solutions, including the development of vesicle-based vaccines for medically relevant fungal pathogens.">
+         data-en="We translate basic knowledge into biotechnological solutions, including the development of vesicle-based vaccines for medically relevant fungal pathogens."
+         data-fr="Nous traduisons les connaissances fondamentales en solutions biotechnologiques, incluant le développement de vaccins à base de vésicules pour les pathogènes fongiques d'intérêt médical.">
         Traduzimos o conhecimento básico em soluções biotecnológicas, incluindo o desenvolvimento de vacinas baseadas em vesículas para patógenos fúngicos de relevância médica.
       </p>
     </div>
@@ -426,12 +443,12 @@
 
 <!-- EQUIPE -->
 <section class="equipe" id="equipe">
-  <h2 class="section-title" data-pt="Nossa Equipe" data-en="Our Team">Nossa Equipe</h2>
+  <h2 class="section-title" data-pt="Nossa Equipe" data-en="Our Team" data-fr="Notre Équipe">Nossa Equipe</h2>
   <div class="section-line"></div>
 
   <div style="max-width:1100px;margin:0 auto;">
     <!-- PI -->
-    <div class="team-section-label" data-pt="Professora / Pesquisadora Principal" data-en="Professor / Principal Investigator">Professora / Pesquisadora Principal</div>
+    <div class="team-section-label" data-pt="Professora / Pesquisadora Principal" data-en="Professor / Principal Investigator" data-fr="Professeure / Chercheuse Principale">Professora / Pesquisadora Principal</div>
     <div class="team-grid single">
       <div class="member">
         <a class="member-avatar-link" href="http://lattes.cnpq.br/9875410231869397" target="_blank" rel="noopener" aria-label="Lattes — Juliana Rizzo">
@@ -440,17 +457,18 @@
           </div>
         </a>
         <h4>Juliana Rizzo</h4>
-        <div class="role" data-pt="Professora" data-en="Professor">Professora</div>
+        <div class="role" data-pt="Professora" data-en="Professor" data-fr="Professeure">Professora</div>
         <div class="bio"
              data-pt="Graduação em Biologia (UNESP), Mestrado em Microbiologia (UFRJ) e Doutorado em Química Biológica (UFRJ), com período de Pós-doc no Instituto Pasteur Paris. Lidera duas linhas de pesquisa: o estudo de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e na prospecção de moléculas bioativas; e o desenvolvimento de peptídeos miméticos de flipases como novas estratégias antifúngicas. <a href='https://cienciapioneira.org/pesquisador/juliana-rizzo/' target='_blank' rel='noopener'>Ver perfil Pioneira →</a>"
-             data-en="BSc in Biology (UNESP), MSc in Microbiology (UFRJ) and PhD in Biological Chemistry (UFRJ), with a postdoctoral period at Institut Pasteur Paris. She leads two research lines: the study of extracellular vesicles in fungus-bacteria interactions, focusing on antimicrobial resistance and bioactive molecule prospecting; and the development of flippase-mimetic peptides as novel antifungal strategies. <a href='https://cienciapioneira.org/pesquisador/juliana-rizzo/' target='_blank' rel='noopener'>View Pioneira profile →</a>">
+             data-en="BSc in Biology (UNESP), MSc in Microbiology (UFRJ) and PhD in Biological Chemistry (UFRJ), with a postdoctoral period at Institut Pasteur Paris. She leads two research lines: the study of extracellular vesicles in fungus-bacteria interactions, focusing on antimicrobial resistance and bioactive molecule prospecting; and the development of flippase-mimetic peptides as novel antifungal strategies. <a href='https://cienciapioneira.org/pesquisador/juliana-rizzo/' target='_blank' rel='noopener'>View Pioneira profile →</a>"
+             data-fr="Licence en Biologie (UNESP), Master en Microbiologie (UFRJ) et Doctorat en Chimie Biologique (UFRJ), avec un post-doctorat à l'Institut Pasteur Paris. Elle dirige deux axes de recherche : l'étude des vésicules extracellulaires dans les interactions champignon-bactérie, axée sur la résistance antimicrobienne et la prospection de molécules bioactives ; et le développement de peptides mimétiques de flippases comme nouvelles stratégies antifongiques. <a href='https://cienciapioneira.org/pesquisador/juliana-rizzo/' target='_blank' rel='noopener'>Voir le profil Pioneira →</a>">
           Graduação em Biologia (UNESP), Mestrado em Microbiologia (UFRJ) e Doutorado em Química Biológica (UFRJ), com período de Pós-doc no Instituto Pasteur Paris. Lidera duas linhas de pesquisa: o estudo de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e na prospecção de moléculas bioativas; e o desenvolvimento de peptídeos miméticos de flipases como novas estratégias antifúngicas. <a href="https://cienciapioneira.org/pesquisador/juliana-rizzo/" target="_blank" rel="noopener">Ver perfil Pioneira →</a>
         </div>
       </div>
     </div>
 
     <!-- PÓS-DOC -->
-    <div class="team-section-label" data-pt="Pós-Doutorado" data-en="Postdoctoral Researcher">Pós-Doutorado</div>
+    <div class="team-section-label" data-pt="Pós-Doutorado" data-en="Postdoctoral Researcher" data-fr="Post-Doctorat">Pós-Doutorado</div>
     <div class="team-grid single">
       <div class="member">
         <a class="member-avatar-link" href="http://lattes.cnpq.br/4535240541628007" target="_blank" rel="noopener" aria-label="Lattes — Roberto Guardatti">
@@ -459,17 +477,18 @@
           </div>
         </a>
         <h4>Roberto Guardatti</h4>
-        <div class="role" data-pt="Pós-Doutorando" data-en="Postdoctoral Researcher">Pós-Doutorando</div>
+        <div class="role" data-pt="Pós-Doutorando" data-en="Postdoctoral Researcher" data-fr="Post-doctorant">Pós-Doutorando</div>
         <div class="bio"
              data-pt="Graduação, Mestrado e Doutorado em Microbiologia e Imunologia (UFRJ). Explora a comunicação e interação microbiana entre bactérias e fungos, tendo como foco as vesículas extracelulares (VEs) produzidas por ambos os microrganismos. Isola e caracteriza VEs de bactérias clinicamente relevantes, avalia seu impacto na formação de biofilmes fúngicos, e analisa o impacto de VEs fúngicas sobre a resistência bacteriana a fármacos."
-             data-en="BSc, MSc and PhD in Microbiology and Immunology (UFRJ). He explores microbial communication and interaction between bacteria and fungi, focusing on extracellular vesicles (EVs) produced by both microorganisms. He isolates and characterizes EVs from clinically relevant bacteria, evaluates their impact on fungal biofilm formation, and analyses the impact of fungal EVs on bacterial drug resistance.">
+             data-en="BSc, MSc and PhD in Microbiology and Immunology (UFRJ). He explores microbial communication and interaction between bacteria and fungi, focusing on extracellular vesicles (EVs) produced by both microorganisms. He isolates and characterizes EVs from clinically relevant bacteria, evaluates their impact on fungal biofilm formation, and analyses the impact of fungal EVs on bacterial drug resistance."
+             data-fr="Licence, Master et Doctorat en Microbiologie et Immunologie (UFRJ). Il étudie la communication et l'interaction microbienne entre bactéries et champignons, en se concentrant sur les vésicules extracellulaires (VE) produites par ces deux types de microorganismes. Il isole et caractérise les VE de bactéries cliniquement pertinentes, évalue leur impact sur la formation de biofilms fongiques, et analyse l'impact des VE fongiques sur la résistance bactérienne aux médicaments.">
           Graduação, Mestrado e Doutorado em Microbiologia e Imunologia (UFRJ). Explora a comunicação e interação microbiana entre bactérias e fungos, tendo como foco as vesículas extracelulares (VEs) produzidas por ambos os microrganismos. Isola e caracteriza VEs de bactérias clinicamente relevantes, avalia seu impacto na formação de biofilmes fúngicos, e analisa o impacto de VEs fúngicas sobre a resistência bacteriana a fármacos.
         </div>
       </div>
     </div>
 
     <!-- DOUTORANDOS -->
-    <div class="team-section-label" data-pt="Doutorandas" data-en="PhD Students">Doutorandas</div>
+    <div class="team-section-label" data-pt="Doutorandas" data-en="PhD Students" data-fr="Doctorantes">Doutorandas</div>
     <div class="team-grid two">
       <div class="member">
         <a class="member-avatar-link" href="https://lattes.cnpq.br/8464112254188233" target="_blank" rel="noopener" aria-label="Lattes — Adèle Trottier">
@@ -478,10 +497,11 @@
           </div>
         </a>
         <h4>Adèle Trottier</h4>
-        <div class="role" data-pt="Doutoranda" data-en="PhD Student">Doutoranda</div>
+        <div class="role" data-pt="Doutoranda" data-en="PhD Student" data-fr="Doctorante">Doutoranda</div>
         <div class="bio"
              data-pt="Tecnólogo em Biotecnologia (Lycée Gallilé), Graduação em Genômica (ENCPB/CNAM), Mestrado em Bioinformática (Université Paris Cité). Seu projeto investiga o papel das VEs na comunicação fúngica-bacteriana, buscando identificar compostos bioativos carregados por essas VEs e seu impacto na fisiologia fúngica e suscetibilidade a medicamentos."
-             data-en="Biotechnology Technologist (Lycée Gallilé), BSc in Genomics (ENCPB/CNAM), MSc in Bioinformatics (Université Paris Cité). Her project investigates the role of EVs in fungal-bacterial communication, seeking to identify bioactive compounds carried by these EVs and their impact on fungal physiology and drug susceptibility.">
+             data-en="Biotechnology Technologist (Lycée Gallilé), BSc in Genomics (ENCPB/CNAM), MSc in Bioinformatics (Université Paris Cité). Her project investigates the role of EVs in fungal-bacterial communication, seeking to identify bioactive compounds carried by these EVs and their impact on fungal physiology and drug susceptibility."
+             data-fr="Technologue en Biotechnologie (Lycée Galilée), Licence en Génomique (ENCPB/CNAM), Master en Bioinformatique (Université Paris Cité). Son projet étudie le rôle des VE dans la communication champignon-bactérie, cherchant à identifier les composés bioactifs transportés par ces VE et leur impact sur la physiologie fongique et la sensibilité aux médicaments.">
           Tecnólogo em Biotecnologia (Lycée Gallilé), Graduação em Genômica (ENCPB/CNAM), Mestrado em Bioinformática (Université Paris Cité). Seu projeto investiga o papel das VEs na comunicação fúngica-bacteriana, buscando identificar compostos bioativos carregados por essas VEs e seu impacto na fisiologia fúngica e suscetibilidade a medicamentos.
         </div>
       </div>
@@ -492,17 +512,18 @@
           </div>
         </a>
         <h4>Bruna Montalvão</h4>
-        <div class="role" data-pt="Doutoranda" data-en="PhD Student">Doutoranda</div>
+        <div class="role" data-pt="Doutoranda" data-en="PhD Student" data-fr="Doctorante">Doutoranda</div>
         <div class="bio"
              data-pt="Graduação em Ciências Biológicas (UERJ), Mestrado em Imunologia (IBCCF/UFRJ), Doutoranda em Biofísica (IBCCF/UFRJ). Especializada em microscopia de fluorescência, isolamento de VEs e análise de nanopartículas. Seu projeto estuda o perfil de glicosilação de vesículas extracelulares de Candida albicans e sua relevância em processos de patogênese e interação microbiana."
-             data-en="BSc in Biological Sciences (UERJ), MSc in Immunology (IBCCF/UFRJ), PhD student in Biophysics (IBCCF/UFRJ). Specialized in fluorescence microscopy, EV isolation and nanoparticle analysis. Her project studies the glycosylation profile of Candida albicans extracellular vesicles and their relevance in pathogenesis and microbial interaction.">
+             data-en="BSc in Biological Sciences (UERJ), MSc in Immunology (IBCCF/UFRJ), PhD student in Biophysics (IBCCF/UFRJ). Specialized in fluorescence microscopy, EV isolation and nanoparticle analysis. Her project studies the glycosylation profile of Candida albicans extracellular vesicles and their relevance in pathogenesis and microbial interaction."
+             data-fr="Licence en Sciences Biologiques (UERJ), Master en Immunologie (IBCCF/UFRJ), Doctorante en Biophysique (IBCCF/UFRJ). Spécialisée en microscopie de fluorescence, isolement de VE et analyse de nanoparticules. Son projet étudie le profil de glycosylation des vésicules extracellulaires de Candida albicans et leur rôle dans la pathogenèse et l'interaction microbienne.">
           Graduação em Ciências Biológicas (UERJ), Mestrado em Imunologia (IBCCF/UFRJ), Doutoranda em Biofísica (IBCCF/UFRJ). Especializada em microscopia de fluorescência, isolamento de VEs e análise de nanopartículas. Seu projeto estuda o perfil de glicosilação de vesículas extracelulares de Candida albicans e sua relevância em processos de patogênese e interação microbiana.
         </div>
       </div>
     </div>
 
     <!-- IC -->
-    <div class="team-section-label" data-pt="Iniciação Científica" data-en="Undergraduate Researchers">Iniciação Científica</div>
+    <div class="team-section-label" data-pt="Iniciação Científica" data-en="Undergraduate Researchers" data-fr="Initiation Scientifique">Iniciação Científica</div>
     <div class="team-grid">
       <div class="member">
         <a class="member-avatar-link" href="http://lattes.cnpq.br/5770850293350149" target="_blank" rel="noopener" aria-label="Lattes — Vanessa Placido">
@@ -511,10 +532,11 @@
           </div>
         </a>
         <h4>Vanessa Placido</h4>
-        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher" data-fr="Initiation Scientifique">Iniciação Científica</div>
         <div class="bio"
              data-pt="Graduação em Ciências Biológicas: Microbiologia e Imunologia (UFRJ). Analisa os mecanismos moleculares das interações mediadas por Vesículas Extracelulares entre Candida albicans e Escherichia coli."
-             data-en="BSc in Biological Sciences: Microbiology and Immunology (UFRJ). Analyses the molecular mechanisms of Extracellular Vesicle-mediated interactions between Candida albicans and Escherichia coli.">
+             data-en="BSc in Biological Sciences: Microbiology and Immunology (UFRJ). Analyses the molecular mechanisms of Extracellular Vesicle-mediated interactions between Candida albicans and Escherichia coli."
+             data-fr="Licence en Sciences Biologiques : Microbiologie et Immunologie (UFRJ). Analyse les mécanismes moléculaires des interactions médiées par les Vésicules Extracellulaires entre Candida albicans et Escherichia coli.">
           Graduação em Ciências Biológicas: Microbiologia e Imunologia (UFRJ). Analisa os mecanismos moleculares das interações mediadas por Vesículas Extracelulares entre Candida albicans e Escherichia coli.
         </div>
       </div>
@@ -525,10 +547,11 @@
           </div>
         </a>
         <h4>Raquel Bispo</h4>
-        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher" data-fr="Initiation Scientifique">Iniciação Científica</div>
         <div class="bio"
              data-pt="Graduação em Farmácia (UFRJ). Atua nos experimentos de Co-Cultura entre espécies de fungos e bactérias gram-negativas, analisando se há Cooperação, Neutralismo ou Inibição entre as espécies."
-             data-en="BSc in Pharmacy (UFRJ). Conducts Co-Culture experiments between fungal species and gram-negative bacteria, analysing whether there is Cooperation, Neutralism or Inhibition between the species.">
+             data-en="BSc in Pharmacy (UFRJ). Conducts Co-Culture experiments between fungal species and gram-negative bacteria, analysing whether there is Cooperation, Neutralism or Inhibition between the species."
+             data-fr="Licence en Pharmacie (UFRJ). Mène les expériences de Co-Culture entre espèces fongiques et bactéries Gram-négatives, analysant s'il existe Coopération, Neutralisme ou Inhibition entre les espèces.">
           Graduação em Farmácia (UFRJ). Atua nos experimentos de Co-Cultura entre espécies de fungos e bactérias gram-negativas, analisando se há Cooperação, Neutralismo ou Inibição entre as espécies.
         </div>
       </div>
@@ -539,10 +562,11 @@
           </div>
         </a>
         <h4>Barbara Cioti</h4>
-        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher" data-fr="Initiation Scientifique">Iniciação Científica</div>
         <div class="bio"
              data-pt="Graduação em Farmácia (UFRJ). Atuando no Projeto Flip, analisa o efeito antifúngico do Peptídeo Flip contra Cryptococcus spp. e Candida spp."
-             data-en="BSc in Pharmacy (UFRJ). Working on the Flip Project, she analyses the antifungal effect of the Flip Peptide against Cryptococcus spp. and Candida spp.">
+             data-en="BSc in Pharmacy (UFRJ). Working on the Flip Project, she analyses the antifungal effect of the Flip Peptide against Cryptococcus spp. and Candida spp."
+             data-fr="Licence en Pharmacie (UFRJ). Travaillant sur le Projet Flip, elle analyse l'effet antifongique du Peptide Flip contre Cryptococcus spp. et Candida spp.">
           Graduação em Farmácia (UFRJ). Atuando no Projeto Flip, analisa o efeito antifúngico do Peptídeo Flip contra Cryptococcus spp. e Candida spp.
         </div>
       </div>
@@ -553,10 +577,11 @@
           </div>
         </a>
         <h4>Maria Beatriz da Cunha</h4>
-        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher" data-fr="Initiation Scientifique">Iniciação Científica</div>
         <div class="bio"
              data-pt="Graduação em Farmácia (UFRJ). Estuda a interação fungo-bactéria, especialmente por meio de co-cultivos e análise de vesículas extracelulares."
-             data-en="BSc in Pharmacy (UFRJ). Studies fungus-bacteria interaction, especially through co-cultures and extracellular vesicle analysis.">
+             data-en="BSc in Pharmacy (UFRJ). Studies fungus-bacteria interaction, especially through co-cultures and extracellular vesicle analysis."
+             data-fr="Licence en Pharmacie (UFRJ). Étudie l'interaction champignon-bactérie, notamment via des co-cultures et l'analyse de vésicules extracellulaires.">
           Graduação em Farmácia (UFRJ). Estuda a interação fungo-bactéria, especialmente por meio de co-cultivos e análise de vesículas extracelulares.
         </div>
       </div>
@@ -567,10 +592,11 @@
           </div>
         </a>
         <h4>Mariana dos Anjos</h4>
-        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
+        <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher" data-fr="Initiation Scientifique">Iniciação Científica</div>
         <div class="bio"
              data-pt="Graduação em Ciências Biológicas: Microbiologia e Imunologia (UFRJ). Analisa os análogos de Flipases como novos alvos de terapia antifúngica."
-             data-en="BSc in Biological Sciences: Microbiology and Immunology (UFRJ). Analyses flippase analogues as novel antifungal therapy targets.">
+             data-en="BSc in Biological Sciences: Microbiology and Immunology (UFRJ). Analyses flippase analogues as novel antifungal therapy targets."
+             data-fr="Licence en Sciences Biologiques : Microbiologie et Immunologie (UFRJ). Analyse les analogues de Flippases comme nouvelles cibles de thérapie antifongique.">
           Graduação em Ciências Biológicas: Microbiologia e Imunologia (UFRJ). Analisa os análogos de Flipases como novos alvos de terapia antifúngica.
         </div>
       </div>
@@ -580,7 +606,7 @@
 
 <!-- PUBLICAÇÕES -->
 <section class="publicacoes" id="publicacoes">
-  <h2 class="section-title" data-pt="Publicações em Destaque" data-en="Selected Publications">Publicações em Destaque</h2>
+  <h2 class="section-title" data-pt="Publicações em Destaque" data-en="Selected Publications" data-fr="Publications Sélectionnées">Publicações em Destaque</h2>
   <div class="section-line"></div>
   <div class="pub-list">
     <a class="pub-link" href="https://doi.org/10.1038/s41564-025-01962-4" target="_blank" rel="noopener">
@@ -620,7 +646,7 @@
         <div class="pub-year">2020</div>
         <h4>Extracellular vesicles in fungi: past, present and future perspectives</h4>
         <p>Rizzo et al. · <em>Frontiers</em></p>
-        <span class="doi" data-pt="Buscar no PubMed ↗" data-en="Search on PubMed ↗">Buscar no PubMed ↗</span>
+        <span class="doi" data-pt="Buscar no PubMed ↗" data-en="Search on PubMed ↗" data-fr="Rechercher sur PubMed ↗">Buscar no PubMed ↗</span>
       </div>
     </a>
   </div>
@@ -628,27 +654,30 @@
 
 <!-- CONTATO -->
 <section class="contato" id="contato">
-  <h2 class="section-title" data-pt="Contato" data-en="Contact">Contato</h2>
+  <h2 class="section-title" data-pt="Contato" data-en="Contact" data-fr="Contact">Contato</h2>
   <div class="section-line"></div>
   <div class="contato-grid">
     <div class="contato-info">
-      <p><strong>Laboratório PAVe</strong></p>
-      <p data-pt="Instituto de Biofísica Carlos Chagas Filho<br>Universidade Federal do Rio de Janeiro"
-         data-en="Carlos Chagas Filho Institute of Biophysics<br>Federal University of Rio de Janeiro">
-        Instituto de Biofísica Carlos Chagas Filho<br>Universidade Federal do Rio de Janeiro
+      <p><strong data-pt="Laboratório PAVe" data-en="PAVe Laboratory" data-fr="Laboratoire PAVe">Laboratório PAVe</strong></p>
+      <p data-pt="Centro de Pesquisas de Medicina de Precisão — CPMP/IBCCF/UFRJ"
+         data-en="Precision Medicine Research Center — CPMP/IBCCF/UFRJ"
+         data-fr="Centre de Recherches en Médecine de Précision — CPMP/IBCCF/UFRJ">
+        Centro de Pesquisas de Medicina de Precisão — CPMP/IBCCF/UFRJ
       </p>
       <p>
-        <strong data-pt="Endereço:" data-en="Address:">Endereço:</strong><br>
-        Av. Carlos Chagas Filho, 373 — Bloco G<br>
-        CCS · Ilha do Fundão<br>
-        Rio de Janeiro — RJ · 21941-902
+        <strong data-pt="Endereço:" data-en="Address:" data-fr="Adresse :">Endereço:</strong><br>
+        <span data-pt="Avenida Carlos Chagas Filho, esquina da Rua Maria Dolores Lins de Andrade<br>Campus Fundão da UFRJ<br>Rio de Janeiro — RJ · 21941-902"
+              data-en="Avenida Carlos Chagas Filho, corner of Rua Maria Dolores Lins de Andrade<br>Fundão Campus, UFRJ<br>Rio de Janeiro — RJ · 21941-902"
+              data-fr="Avenida Carlos Chagas Filho, à l'angle de la Rua Maria Dolores Lins de Andrade<br>Campus Fundão de l'UFRJ<br>Rio de Janeiro — RJ · 21941-902">
+          Avenida Carlos Chagas Filho, esquina da Rua Maria Dolores Lins de Andrade<br>Campus Fundão da UFRJ<br>Rio de Janeiro — RJ · 21941-902
+        </span>
       </p>
-      <p><strong>E-mail:</strong> contato@pave.ibccf.ufrj.br</p>
+      <p><strong>E-mail:</strong> <a href="mailto:pave@biof.ufrj.br" style="color:var(--blue-light);text-decoration:none;">pave@biof.ufrj.br</a></p>
     </div>
     <div class="contato-links">
-      <a href="https://www.biofisica.ufrj.br/" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">🌐</span><span data-pt="Site Institucional IBCCF/UFRJ" data-en="IBCCF/UFRJ Institutional Website">Site Institucional IBCCF/UFRJ</span></a>
-      <a href="http://lattes.cnpq.br/9875410231869397" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">📄</span><span data-pt="Lattes — CNPq" data-en="Lattes — CNPq">Lattes — CNPq</span></a>
-      <a href="https://cienciapioneira.org/pesquisador/juliana-rizzo/" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">🔬</span><span data-pt="Ciência Pioneira" data-en="Ciência Pioneira">Ciência Pioneira</span></a>
+      <a href="https://biof.ufrj.br/" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">🌐</span><span data-pt="Site Institucional IBCCF/UFRJ" data-en="IBCCF/UFRJ Institutional Website" data-fr="Site Institutionnel IBCCF/UFRJ">Site Institucional IBCCF/UFRJ</span></a>
+      <a href="http://lattes.cnpq.br/9875410231869397" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">📄</span><span>Lattes — CNPq</span></a>
+      <a href="https://cienciapioneira.org/pesquisador/juliana-rizzo/" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">🔬</span><span>Ciência Pioneira</span></a>
       <a href="https://www.researchgate.net/profile/Juliana-Rizzo" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">🔗</span>ResearchGate</a>
       <a href="https://pubmed.ncbi.nlm.nih.gov/?term=juliana+rizzo" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">📚</span>PubMed</a>
       <a href="https://scholar.google.com.br/citations?user=Of1hwrAAAAAJ&hl=pt-BR" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">🎓</span>Google Scholar</a>
@@ -658,7 +687,11 @@
 </section>
 
 <footer>
-  <p>© 2025 <span>PAVe</span> — Pesquisas Avançadas em Vesículas Extracelulares &nbsp;|&nbsp; IBCCF · UFRJ &nbsp;|&nbsp; Rio de Janeiro, Brasil</p>
+  <p data-pt="© 2025 <span>PAVe</span> — Pesquisas Avançadas em Vesículas Extracelulares &nbsp;|&nbsp; IBCCF · UFRJ &nbsp;|&nbsp; Rio de Janeiro, Brasil"
+     data-en="© 2025 <span>PAVe</span> — Advanced Research in Extracellular Vesicles &nbsp;|&nbsp; IBCCF · UFRJ &nbsp;|&nbsp; Rio de Janeiro, Brazil"
+     data-fr="© 2025 <span>PAVe</span> — Recherches Avancées en Vésicules Extracellulaires &nbsp;|&nbsp; IBCCF · UFRJ &nbsp;|&nbsp; Rio de Janeiro, Brésil">
+    © 2025 <span>PAVe</span> — Pesquisas Avançadas em Vesículas Extracelulares &nbsp;|&nbsp; IBCCF · UFRJ &nbsp;|&nbsp; Rio de Janeiro, Brasil
+  </p>
 </footer>
 
 <script>
@@ -673,13 +706,16 @@
     document.getElementById('mobileMenu').classList.remove('open');
   }
   function setLang(lang){
-    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
-    document.querySelectorAll('[data-pt],[data-en]').forEach(el => {
+    const langMap = {pt:'pt-BR', en:'en', fr:'fr'};
+    document.documentElement.lang = langMap[lang] || 'pt-BR';
+    document.querySelectorAll('[data-pt],[data-en],[data-fr]').forEach(el => {
       const txt = el.getAttribute('data-' + lang);
       if(txt) el.innerHTML = txt;
     });
-    document.getElementById('btn-pt').classList.toggle('active', lang==='pt');
-    document.getElementById('btn-en').classList.toggle('active', lang==='en');
+    ['pt','en','fr'].forEach(l => {
+      const btn = document.getElementById('btn-' + l);
+      if(btn) btn.classList.toggle('active', l === lang);
+    });
   }
 </script>
 </body>
