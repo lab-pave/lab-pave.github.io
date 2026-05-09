@@ -3,8 +3,23 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="PAVe — Laboratório de Pesquisas Avançadas em Vesículas Extracelulares (IBCCF/UFRJ). Comunicação intercelular microbiana, patógenos fúngicos e biotecnologia para saúde."/>
+<meta property="og:title" content="PAVe — Pesquisas Avançadas em Vesículas Extracelulares"/>
+<meta property="og:description" content="Laboratório de pesquisa em vesículas extracelulares de patógenos fúngicos no IBCCF/UFRJ."/>
+<meta property="og:image" content="assets/logo-pave.png"/>
+<meta property="og:type" content="website"/>
+<link rel="icon" type="image/png" href="assets/logo-pave.png"/>
 <title>PAVe — Pesquisas Avançadas em Vesículas Extracelulares</title>
 <style>
+  /* ──────────────────────────────────────────────────────────────
+     PAVe Brand Palette (source of truth — keep in sync with any
+     future PDF/PS brand guide dropped into assets/design/)
+       Primary:    #2B4FCC blue · #1a3399 deep blue · #5BC8E8 light
+       Accent:     #3ABFB0 teal
+       Hero ramp:  #0d1b5e → #1a3399 → #1a7fa8 → #3ABFB0
+       Neutral:    #f4f6fb gray-light · #e2e8f0 gray-mid
+                   #4a5568 gray-text · #1a2340 text-dark
+     ────────────────────────────────────────────────────────────── */
   :root {
     --blue-main:#2B4FCC; --blue-dark:#1a3399; --blue-light:#5BC8E8;
     --teal:#3ABFB0; --gray-light:#f4f6fb; --gray-mid:#e2e8f0;
@@ -14,6 +29,20 @@
   html{scroll-behavior:smooth;}
   body{font-family:var(--font);color:#1a2340;background:var(--white);}
 
+  /* A11Y */
+  :focus-visible{outline:2px solid var(--blue-main);outline-offset:3px;border-radius:4px;}
+  .skip-link{
+    position:absolute;left:-9999px;top:-9999px;
+    background:var(--blue-main);color:#fff;padding:10px 16px;
+    border-radius:0 0 8px 0;font-weight:600;font-size:0.9rem;
+    text-decoration:none;z-index:300;
+  }
+  .skip-link:focus{left:0;top:0;}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important;}
+    .bubble{display:none;}
+  }
+
   /* LANG TOGGLE */
   .lang-switcher{
     position:fixed;top:14px;right:5%;z-index:200;
@@ -21,9 +50,11 @@
   }
   .lang-btn{
     background:none;border:2px solid rgba(43,79,204,0.25);border-radius:6px;
-    cursor:pointer;font-size:1.2rem;padding:2px 6px;transition:all .2s;
-    line-height:1;
+    cursor:pointer;font-size:0.85rem;padding:4px 9px;transition:all .2s;
+    line-height:1;display:inline-flex;align-items:center;gap:4px;
+    font-weight:600;color:var(--blue-main);
   }
+  .lang-btn .flag{font-size:1rem;line-height:1;}
   .lang-btn.active{border-color:var(--blue-main);background:rgba(43,79,204,0.08);}
   .lang-btn:hover{border-color:var(--blue-main);}
 
@@ -36,7 +67,7 @@
     padding:0 5%;height:64px;
     box-shadow:0 2px 16px rgba(43,79,204,0.08);
   }
-  .nav-logo{display:flex;align-items:center;gap:10px;}
+  .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;}
   .nav-logo img{height:42px;object-fit:contain;}
   .nav-logo-sub{font-size:0.65rem;color:var(--gray-text);font-weight:500;max-width:180px;line-height:1.2;}
   .nav-links{display:flex;gap:28px;list-style:none;margin-right:100px;}
@@ -141,17 +172,30 @@
     transition:transform .2s;
   }
   .member:hover{transform:translateY(-4px);}
+  .member-avatar-link{
+    display:block;width:110px;margin:0 auto 14px;text-decoration:none;
+    transition:transform .2s;
+  }
+  .member-avatar-link:hover{transform:scale(1.04);}
   .member-avatar{
-    width:110px;height:110px;border-radius:50%;margin:0 auto 14px;overflow:hidden;
+    width:110px;height:110px;border-radius:50%;overflow:hidden;
     border:3px solid var(--blue-light);
     background:linear-gradient(135deg,var(--blue-main),var(--teal));
     display:flex;align-items:center;justify-content:center;
-    font-size:1.8rem;color:#fff;font-weight:800;
+    font-size:1.8rem;color:#fff;font-weight:800;position:relative;
   }
-  .member-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+  .member-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+  .member-avatar.no-photo::before{
+    content:attr(data-initials);
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;color:#fff;font-weight:800;letter-spacing:1px;
+  }
   .member h4{font-size:0.95rem;font-weight:700;color:var(--blue-main);margin-bottom:4px;}
   .member .role{font-size:0.78rem;color:var(--teal);font-weight:600;margin-bottom:6px;}
   .member .bio{font-size:0.78rem;color:var(--gray-text);line-height:1.5;}
+  .member .bio a{color:var(--blue-main);text-decoration:none;font-weight:600;border-bottom:1px dotted var(--blue-light);}
+  .member .bio a:hover{color:var(--teal);border-bottom-color:var(--teal);}
 
   /* PUBLICAÇÕES */
   .publicacoes{background:var(--gray-light);}
@@ -161,10 +205,13 @@
     border-left:4px solid var(--blue-light);
     box-shadow:0 1px 8px rgba(43,79,204,0.06);transition:border-color .2s;
   }
-  .pub-item:hover{border-color:var(--blue-main);}
+  .pub-item:hover{border-color:var(--blue-main);transform:translateX(4px);box-shadow:0 4px 16px rgba(43,79,204,0.1);}
+  .pub-item{transition:border-color .2s,transform .2s,box-shadow .2s;}
+  .pub-link{display:block;text-decoration:none;color:inherit;}
   .pub-item .pub-year{font-size:0.75rem;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
   .pub-item h4{font-size:0.95rem;font-weight:600;color:#1a2340;margin-bottom:6px;line-height:1.4;}
   .pub-item p{font-size:0.82rem;color:var(--gray-text);}
+  .pub-item .doi{font-size:0.72rem;color:var(--blue-main);font-weight:600;margin-top:6px;display:inline-block;}
 
   /* CONTATO */
   .contato{background:linear-gradient(135deg,#0d1b5e 0%,#1a3399 60%,#1a7fa8 100%);color:#fff;}
@@ -212,6 +259,7 @@
     .affil-tag{font-size:0.75rem;padding:5px 12px;}
     .hero-cta{font-size:0.9rem;padding:12px 28px;}
     .team-grid{grid-template-columns:1fr;}
+    .member-avatar-link{width:90px;}
     .member-avatar{width:90px;height:90px;}
     .pub-item{padding:16px 18px;}
     footer{font-size:0.72rem;}
@@ -248,18 +296,21 @@
 </head>
 <body>
 
+<!-- SKIP LINK -->
+<a class="skip-link" href="#sobre" data-pt="Pular para o conteúdo" data-en="Skip to content">Pular para o conteúdo</a>
+
 <!-- LANG SWITCHER -->
-<div class="lang-switcher">
-  <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')" title="Português">🇧🇷</button>
-  <button class="lang-btn" id="btn-en" onclick="setLang('en')" title="English">🇺🇸</button>
+<div class="lang-switcher" role="group" aria-label="Language selector">
+  <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')" aria-label="Mudar para Português" title="Português"><span class="flag" aria-hidden="true">🇧🇷</span><span>PT</span></button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')" aria-label="Switch to English" title="English"><span class="flag" aria-hidden="true">🇺🇸</span><span>EN</span></button>
 </div>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 50'%3E%3Ctext x='4' y='38' font-family='Arial Black,sans-serif' font-weight='900' font-size='36' fill='%232B4FCC'%3EPAVe%3C/text%3E%3C/svg%3E" alt="PAVe Logo"/>
+  <a href="#" class="nav-logo" aria-label="PAVe — início">
+    <img src="assets/logo-pave.png" alt="PAVe Logo"/>
     <div class="nav-logo-sub">IBCCF · UFRJ</div>
-  </div>
+  </a>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -290,8 +341,7 @@
   </div>
   <div class="hero-content">
     <div class="hero-badge" data-pt="Laboratório de Pesquisa · UFRJ" data-en="Research Laboratory · UFRJ">Laboratório de Pesquisa · UFRJ</div>
-    <!-- Replace src below with actual logo image URL or base64 when available -->
-    <img class="hero-logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80'%3E%3Ctext x='4' y='62' font-family='Arial Black,sans-serif' font-weight='900' font-size='60' fill='%232B4FCC'%3EPAVe%3C/text%3E%3C/svg%3E" alt="PAVe"/>
+    <img class="hero-logo-img" src="assets/logo-pave.png" alt="PAVe"/>
     <div class="hero-acronym" data-pt="Pesquisas Avançadas em Vesículas Extracelulares" data-en="Advanced Research in Extracellular Vesicles">Pesquisas Avançadas em Vesículas Extracelulares</div>
     <p class="hero-desc" data-pt="Investigamos a comunicação intercelular microbiana mediada por vesículas extracelulares, com foco em patógenos fúngicos e soluções biotecnológicas para saúde." data-en="We investigate microbial intercellular communication mediated by extracellular vesicles, focusing on fungal pathogens and biotechnological solutions for health.">
       Investigamos a comunicação intercelular microbiana mediada por vesículas extracelulares, com foco em patógenos fúngicos e soluções biotecnológicas para saúde.
@@ -384,13 +434,17 @@
     <div class="team-section-label" data-pt="Professora / Pesquisadora Principal" data-en="Professor / Principal Investigator">Professora / Pesquisadora Principal</div>
     <div class="team-grid single">
       <div class="member">
-        <div class="member-avatar"><img src="https://i.imgur.com/placeholder_jr.jpg" onerror="this.parentElement.innerHTML='JR'" alt="Juliana Rizzo"/></div>
+        <a class="member-avatar-link" href="http://lattes.cnpq.br/9875410231869397" target="_blank" rel="noopener" aria-label="Lattes — Juliana Rizzo">
+          <div class="member-avatar" data-initials="JR">
+            <img src="assets/team/juliana_rizzo.jpeg" alt="Juliana Rizzo" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');"/>
+          </div>
+        </a>
         <h4>Juliana Rizzo</h4>
         <div class="role" data-pt="Professora" data-en="Professor">Professora</div>
         <div class="bio"
-             data-pt="Graduação em Biologia (UNESP), Mestrado em Microbiologia (UFRJ) e Doutorado em Química Biológica (UFRJ), com período de Pós-doc no Instituto Pasteur Paris. Lidera duas linhas de pesquisa: o estudo de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e na prospecção de moléculas bioativas; e o desenvolvimento de peptídeos miméticos de flipases como novas estratégias antifúngicas."
-             data-en="BSc in Biology (UNESP), MSc in Microbiology (UFRJ) and PhD in Biological Chemistry (UFRJ), with a postdoctoral period at Institut Pasteur Paris. She leads two research lines: the study of extracellular vesicles in fungus-bacteria interactions, focusing on antimicrobial resistance and bioactive molecule prospecting; and the development of flippase-mimetic peptides as novel antifungal strategies.">
-          Graduação em Biologia (UNESP), Mestrado em Microbiologia (UFRJ) e Doutorado em Química Biológica (UFRJ), com período de Pós-doc no Instituto Pasteur Paris. Lidera duas linhas de pesquisa: o estudo de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e na prospecção de moléculas bioativas; e o desenvolvimento de peptídeos miméticos de flipases como novas estratégias antifúngicas.
+             data-pt="Graduação em Biologia (UNESP), Mestrado em Microbiologia (UFRJ) e Doutorado em Química Biológica (UFRJ), com período de Pós-doc no Instituto Pasteur Paris. Lidera duas linhas de pesquisa: o estudo de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e na prospecção de moléculas bioativas; e o desenvolvimento de peptídeos miméticos de flipases como novas estratégias antifúngicas. <a href='https://cienciapioneira.org/pesquisador/juliana-rizzo/' target='_blank' rel='noopener'>Ver perfil Pioneira →</a>"
+             data-en="BSc in Biology (UNESP), MSc in Microbiology (UFRJ) and PhD in Biological Chemistry (UFRJ), with a postdoctoral period at Institut Pasteur Paris. She leads two research lines: the study of extracellular vesicles in fungus-bacteria interactions, focusing on antimicrobial resistance and bioactive molecule prospecting; and the development of flippase-mimetic peptides as novel antifungal strategies. <a href='https://cienciapioneira.org/pesquisador/juliana-rizzo/' target='_blank' rel='noopener'>View Pioneira profile →</a>">
+          Graduação em Biologia (UNESP), Mestrado em Microbiologia (UFRJ) e Doutorado em Química Biológica (UFRJ), com período de Pós-doc no Instituto Pasteur Paris. Lidera duas linhas de pesquisa: o estudo de vesículas extracelulares em interações fungo-bactéria, com foco na resistência antimicrobiana e na prospecção de moléculas bioativas; e o desenvolvimento de peptídeos miméticos de flipases como novas estratégias antifúngicas. <a href="https://cienciapioneira.org/pesquisador/juliana-rizzo/" target="_blank" rel="noopener">Ver perfil Pioneira →</a>
         </div>
       </div>
     </div>
@@ -399,7 +453,11 @@
     <div class="team-section-label" data-pt="Pós-Doutorado" data-en="Postdoctoral Researcher">Pós-Doutorado</div>
     <div class="team-grid single">
       <div class="member">
-        <div class="member-avatar">RG</div>
+        <a class="member-avatar-link" href="http://lattes.cnpq.br/4535240541628007" target="_blank" rel="noopener" aria-label="Lattes — Roberto Guardatti">
+          <div class="member-avatar" data-initials="RG">
+            <img src="assets/team/roberto_guardatti.jpeg" alt="Roberto Guardatti" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');"/>
+          </div>
+        </a>
         <h4>Roberto Guardatti</h4>
         <div class="role" data-pt="Pós-Doutorando" data-en="Postdoctoral Researcher">Pós-Doutorando</div>
         <div class="bio"
@@ -414,8 +472,12 @@
     <div class="team-section-label" data-pt="Doutorandas" data-en="PhD Students">Doutorandas</div>
     <div class="team-grid two">
       <div class="member">
-        <div class="member-avatar">AT</div>
-        <h4>Adele Trottier</h4>
+        <a class="member-avatar-link" href="https://lattes.cnpq.br/8464112254188233" target="_blank" rel="noopener" aria-label="Lattes — Adèle Trottier">
+          <div class="member-avatar" data-initials="AT">
+            <img src="assets/team/adele_trottier.jpeg" alt="Adèle Trottier" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');"/>
+          </div>
+        </a>
+        <h4>Adèle Trottier</h4>
         <div class="role" data-pt="Doutoranda" data-en="PhD Student">Doutoranda</div>
         <div class="bio"
              data-pt="Tecnólogo em Biotecnologia (Lycée Gallilé), Graduação em Genômica (ENCPB/CNAM), Mestrado em Bioinformática (Université Paris Cité). Seu projeto investiga o papel das VEs na comunicação fúngica-bacteriana, buscando identificar compostos bioativos carregados por essas VEs e seu impacto na fisiologia fúngica e suscetibilidade a medicamentos."
@@ -424,7 +486,11 @@
         </div>
       </div>
       <div class="member">
-        <div class="member-avatar">BM</div>
+        <a class="member-avatar-link" href="http://lattes.cnpq.br/3947402434232843" target="_blank" rel="noopener" aria-label="Lattes — Bruna Montalvão">
+          <div class="member-avatar" data-initials="BM">
+            <img src="assets/team/bruna_montalvao.jpeg" alt="Bruna Montalvão" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');"/>
+          </div>
+        </a>
         <h4>Bruna Montalvão</h4>
         <div class="role" data-pt="Doutoranda" data-en="PhD Student">Doutoranda</div>
         <div class="bio"
@@ -439,7 +505,11 @@
     <div class="team-section-label" data-pt="Iniciação Científica" data-en="Undergraduate Researchers">Iniciação Científica</div>
     <div class="team-grid">
       <div class="member">
-        <div class="member-avatar">VP</div>
+        <a class="member-avatar-link" href="http://lattes.cnpq.br/5770850293350149" target="_blank" rel="noopener" aria-label="Lattes — Vanessa Placido">
+          <div class="member-avatar" data-initials="VP">
+            <img src="assets/team/vanessa_placido.jpeg" alt="Vanessa Placido" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');"/>
+          </div>
+        </a>
         <h4>Vanessa Placido</h4>
         <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
         <div class="bio"
@@ -449,7 +519,11 @@
         </div>
       </div>
       <div class="member">
-        <div class="member-avatar">RB</div>
+        <a class="member-avatar-link" href="https://lattes.cnpq.br/2632420840718397" target="_blank" rel="noopener" aria-label="Lattes — Raquel Bispo">
+          <div class="member-avatar" data-initials="RB">
+            <img src="assets/team/raquel_bispo.jpeg" alt="Raquel Bispo" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');"/>
+          </div>
+        </a>
         <h4>Raquel Bispo</h4>
         <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
         <div class="bio"
@@ -459,7 +533,11 @@
         </div>
       </div>
       <div class="member">
-        <div class="member-avatar">BC</div>
+        <a class="member-avatar-link" href="http://lattes.cnpq.br/9078231897812634" target="_blank" rel="noopener" aria-label="Lattes — Barbara Cioti">
+          <div class="member-avatar" data-initials="BC">
+            <img src="assets/team/barbara_cioti.jpeg" alt="Barbara Cioti" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');"/>
+          </div>
+        </a>
         <h4>Barbara Cioti</h4>
         <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
         <div class="bio"
@@ -469,7 +547,11 @@
         </div>
       </div>
       <div class="member">
-        <div class="member-avatar">MB</div>
+        <a class="member-avatar-link" href="https://lattes.cnpq.br/0222468349036164" target="_blank" rel="noopener" aria-label="Lattes — Maria Beatriz da Cunha">
+          <div class="member-avatar" data-initials="MB">
+            <img src="assets/team/maria_beatriz.jpeg" alt="Maria Beatriz da Cunha" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');"/>
+          </div>
+        </a>
         <h4>Maria Beatriz da Cunha</h4>
         <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
         <div class="bio"
@@ -479,7 +561,11 @@
         </div>
       </div>
       <div class="member">
-        <div class="member-avatar">MA</div>
+        <a class="member-avatar-link" href="http://lattes.cnpq.br/1820187708378501" target="_blank" rel="noopener" aria-label="Lattes — Mariana dos Anjos">
+          <div class="member-avatar" data-initials="MA">
+            <img src="assets/team/mariana_anjos.jpeg" alt="Mariana dos Anjos" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-photo');"/>
+          </div>
+        </a>
         <h4>Mariana dos Anjos</h4>
         <div class="role" data-pt="Iniciação Científica" data-en="Undergraduate Researcher">Iniciação Científica</div>
         <div class="bio"
@@ -497,26 +583,46 @@
   <h2 class="section-title" data-pt="Publicações em Destaque" data-en="Selected Publications">Publicações em Destaque</h2>
   <div class="section-line"></div>
   <div class="pub-list">
-    <div class="pub-item">
-      <div class="pub-year">2024</div>
-      <h4 data-pt="Vesículas extracelulares fúngicas como moduladores de resistência antimicrobiana" data-en="Fungal extracellular vesicles as modulators of antimicrobial resistance">Vesículas extracelulares fúngicas como moduladores de resistência antimicrobiana</h4>
-      <p>Journal of Extracellular Vesicles · PAVe / IBCCF / UFRJ</p>
-    </div>
-    <div class="pub-item">
-      <div class="pub-year">2023</div>
-      <h4 data-pt="Caracterização proteômica de pequenas vesículas extracelulares em patógenos fúngicos" data-en="Proteomic characterization of small extracellular vesicles in fungal pathogens">Caracterização proteômica de pequenas vesículas extracelulares em patógenos fúngicos</h4>
-      <p>Molecular & Cellular Proteomics · PAVe / IBCCF / UFRJ</p>
-    </div>
-    <div class="pub-item">
-      <div class="pub-year">2023</div>
-      <h4 data-pt="Peptídeos miméticos de flipases como nova abordagem antifúngica" data-en="Flippase-mimetic peptides as a novel antifungal approach">Peptídeos miméticos de flipases como nova abordagem antifúngica</h4>
-      <p>mBio · PAVe / IBCCF / UFRJ</p>
-    </div>
-    <div class="pub-item">
-      <div class="pub-year">2022</div>
-      <h4 data-pt="Comunicação vesicular em interações fungo-bactéria: implicações para virulência" data-en="Vesicular communication in fungus-bacteria interactions: implications for virulence">Comunicação vesicular em interações fungo-bactéria: implicações para virulência</h4>
-      <p>PLOS Pathogens · PAVe / IBCCF / UFRJ</p>
-    </div>
+    <a class="pub-link" href="https://doi.org/10.1038/s41564-025-01962-4" target="_blank" rel="noopener">
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <h4>Characterizing extracellular vesicles of human fungal pathogens</h4>
+        <p>Rodrigues et al. · <em>Nature Microbiology</em></p>
+        <span class="doi">doi.org/10.1038/s41564-025-01962-4 ↗</span>
+      </div>
+    </a>
+    <a class="pub-link" href="https://doi.org/10.1128/mbio.00870-23" target="_blank" rel="noopener">
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <h4>Coregulation of extracellular vesicle production and fluconazole susceptibility in <em>Cryptococcus neoformans</em></h4>
+        <p>Rizzo et al. · <em>mBio</em></p>
+        <span class="doi">doi.org/10.1128/mbio.00870-23 ↗</span>
+      </div>
+    </a>
+    <a class="pub-link" href="https://doi.org/10.1002/jev2.12129" target="_blank" rel="noopener">
+      <div class="pub-item">
+        <div class="pub-year">2021</div>
+        <h4><em>Cryptococcus</em> extracellular vesicles properties and their use as vaccine platforms</h4>
+        <p>Rizzo et al. · <em>Journal of Extracellular Vesicles</em></p>
+        <span class="doi">doi.org/10.1002/jev2.12129 ↗</span>
+      </div>
+    </a>
+    <a class="pub-link" href="https://doi.org/10.1128/msphere.00476-20" target="_blank" rel="noopener">
+      <div class="pub-item">
+        <div class="pub-year">2020</div>
+        <h4>Characterization of extracellular vesicles produced by protoplasts</h4>
+        <p>Rizzo et al. · <em>mSphere</em></p>
+        <span class="doi">doi.org/10.1128/msphere.00476-20 ↗</span>
+      </div>
+    </a>
+    <a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/?term=juliana+rizzo+extracellular+vesicles+fungi" target="_blank" rel="noopener">
+      <div class="pub-item">
+        <div class="pub-year">2020</div>
+        <h4>Extracellular vesicles in fungi: past, present and future perspectives</h4>
+        <p>Rizzo et al. · <em>Frontiers</em></p>
+        <span class="doi" data-pt="Buscar no PubMed ↗" data-en="Search on PubMed ↗">Buscar no PubMed ↗</span>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -540,11 +646,13 @@
       <p><strong>E-mail:</strong> contato@pave.ibccf.ufrj.br</p>
     </div>
     <div class="contato-links">
-      <a href="#" class="contato-link"><span class="icon">🌐</span><span data-pt="Site Institucional IBCCF/UFRJ" data-en="IBCCF/UFRJ Institutional Website">Site Institucional IBCCF/UFRJ</span></a>
-      <a href="#" class="contato-link"><span class="icon">📄</span><span data-pt="Lattes — CNPq" data-en="Lattes — CNPq">Lattes — CNPq</span></a>
-      <a href="#" class="contato-link"><span class="icon">🔗</span>ResearchGate</a>
-      <a href="#" class="contato-link"><span class="icon">📚</span>PubMed</a>
-      <a href="#" class="contato-link"><span class="icon">📸</span>Instagram</a>
+      <a href="https://www.biofisica.ufrj.br/" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">🌐</span><span data-pt="Site Institucional IBCCF/UFRJ" data-en="IBCCF/UFRJ Institutional Website">Site Institucional IBCCF/UFRJ</span></a>
+      <a href="http://lattes.cnpq.br/9875410231869397" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">📄</span><span data-pt="Lattes — CNPq" data-en="Lattes — CNPq">Lattes — CNPq</span></a>
+      <a href="https://cienciapioneira.org/pesquisador/juliana-rizzo/" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">🔬</span><span data-pt="Ciência Pioneira" data-en="Ciência Pioneira">Ciência Pioneira</span></a>
+      <a href="https://www.researchgate.net/profile/Juliana-Rizzo" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">🔗</span>ResearchGate</a>
+      <a href="https://pubmed.ncbi.nlm.nih.gov/?term=juliana+rizzo" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">📚</span>PubMed</a>
+      <a href="https://scholar.google.com.br/citations?user=Of1hwrAAAAAJ&hl=pt-BR" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">🎓</span>Google Scholar</a>
+      <a href="https://www.instagram.com/pave_ufrj" target="_blank" rel="noopener" class="contato-link"><span class="icon" aria-hidden="true">📸</span>Instagram <span style="opacity:.7;font-size:0.78rem;">@pave_ufrj</span></a>
     </div>
   </div>
 </section>
