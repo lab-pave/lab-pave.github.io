@@ -109,11 +109,18 @@
   .hero-logo-img{height:90px;object-fit:contain;margin-bottom:18px;filter:drop-shadow(0 2px 16px rgba(91,200,232,0.4));}
   .hero-acronym{font-size:1rem;color:rgba(255,255,255,0.75);margin-bottom:22px;font-style:italic;}
   .hero-desc{font-size:1.05rem;color:rgba(255,255,255,0.88);line-height:1.7;margin-bottom:36px;}
-  .hero-affil{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:36px;}
+  .hero-affil{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:36px;align-items:center;}
   .affil-tag{
     background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);
-    border-radius:8px;padding:6px 16px;color:#fff;font-size:0.82rem;font-weight:600;
+    border-radius:10px;padding:6px 16px;color:#fff;font-size:0.82rem;font-weight:600;
+    text-decoration:none;display:inline-flex;align-items:center;justify-content:center;
+    transition:transform .2s,background .2s,border-color .2s;
   }
+  a.affil-tag:hover{transform:translateY(-2px);background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.5);}
+  .affil-tag.affil-logo{padding:6px 14px;height:50px;}
+  .affil-tag.affil-logo img{height:34px;width:auto;display:block;}
+  .affil-tag.affil-light{background:#fff;border-color:#fff;}
+  a.affil-tag.affil-light:hover{background:#f4f6fb;border-color:#f4f6fb;}
   .hero-cta{
     display:inline-block;background:linear-gradient(135deg,var(--blue-light),var(--teal));
     color:#0d1b5e;font-weight:800;font-size:1rem;padding:14px 36px;
@@ -357,9 +364,8 @@
       Investigamos a comunicação intercelular microbiana mediada por vesículas extracelulares, com foco em patógenos fúngicos e soluções biotecnológicas para saúde.
     </p>
     <div class="hero-affil">
-      <span class="affil-tag">🏛 UFRJ</span>
-      <span class="affil-tag">🔬 IBCCF</span>
-      <span class="affil-tag" data-pt="🧬 Biofísica" data-en="🧬 Biophysics" data-fr="🧬 Biophysique">🧬 Biofísica</span>
+      <a class="affil-tag affil-logo affil-light" href="https://ufrj.br/" target="_blank" rel="noopener" aria-label="UFRJ"><img src="assets/institutions/ufrj_color.png" alt="UFRJ"/></a>
+      <a class="affil-tag affil-logo affil-light" href="https://biof.ufrj.br/" target="_blank" rel="noopener" aria-label="IBCCF"><img src="assets/institutions/ibccf.png" alt="IBCCF"/></a>
     </div>
     <a href="#sobre" class="hero-cta" data-pt="Conheça o Laboratório" data-en="Discover the Lab" data-fr="Découvrir le laboratoire">Conheça o Laboratório</a>
   </div>
@@ -389,9 +395,9 @@
       <div class="funding-title" data-pt="Agências de Fomento & Parceiros" data-en="Funding Agencies & Partners" data-fr="Agences de Financement & Partenaires">Agências de Fomento & Parceiros</div>
       <div class="funding-tags">
         <a class="ftag" href="https://www.faperj.br/" target="_blank" rel="noopener" aria-label="FAPERJ"><img src="assets/sponsors/faperj.png" alt="FAPERJ"/></a>
-        <a class="ftag ftag-text-only" href="https://www.gov.br/cnpq/pt-br" target="_blank" rel="noopener">CNPq</a>
+        <a class="ftag" href="https://www.gov.br/cnpq/pt-br" target="_blank" rel="noopener" aria-label="CNPq"><img src="assets/sponsors/cnpq.png" alt="CNPq"/></a>
         <a class="ftag" href="https://fiocruz.br/" target="_blank" rel="noopener" aria-label="Fiocruz"><img src="assets/sponsors/fiocruz.png" alt="Fiocruz"/></a>
-        <a class="ftag" href="https://www.rededorsaoluiz.com.br/instituto/idor/" target="_blank" rel="noopener" aria-label="IDOR"><img src="assets/sponsors/idor.svg" alt="IDOR"/></a>
+        <a class="ftag" href="https://www.rededorsaoluiz.com.br/instituto/idor/" target="_blank" rel="noopener" aria-label="IDOR"><img src="assets/sponsors/idor_cp.png" alt="IDOR"/></a>
       </div>
     </div>
   </div>
@@ -430,12 +436,12 @@
       </p>
     </div>
     <div class="card">
-      <div class="card-icon">💉</div>
-      <h3 data-pt="Vacinas & Biotecnologia" data-en="Vaccines & Biotechnology" data-fr="Vaccins & Biotechnologie">Vacinas & Biotecnologia</h3>
-      <p data-pt="Traduzimos o conhecimento básico em soluções biotecnológicas, incluindo o desenvolvimento de vacinas baseadas em vesículas para patógenos fúngicos de relevância médica."
-         data-en="We translate basic knowledge into biotechnological solutions, including the development of vesicle-based vaccines for medically relevant fungal pathogens."
-         data-fr="Nous traduisons les connaissances fondamentales en solutions biotechnologiques, incluant le développement de vaccins à base de vésicules pour les pathogènes fongiques d'intérêt médical.">
-        Traduzimos o conhecimento básico em soluções biotecnológicas, incluindo o desenvolvimento de vacinas baseadas em vesículas para patógenos fúngicos de relevância médica.
+      <div class="card-icon">🧪</div>
+      <h3 data-pt="Biotecnologia" data-en="Biotechnology" data-fr="Biotechnologie">Biotecnologia</h3>
+      <p data-pt="Traduzimos o conhecimento básico em soluções biotecnológicas baseadas em vesículas extracelulares para patógenos fúngicos de relevância médica."
+         data-en="We translate basic knowledge into vesicle-based biotechnological solutions for medically relevant fungal pathogens."
+         data-fr="Nous traduisons les connaissances fondamentales en solutions biotechnologiques à base de vésicules pour les pathogènes fongiques d'intérêt médical.">
+        Traduzimos o conhecimento básico em soluções biotecnológicas baseadas em vesículas extracelulares para patógenos fúngicos de relevância médica.
       </p>
     </div>
   </div>
@@ -623,6 +629,14 @@
         <h4>Characterizing extracellular vesicles of human fungal pathogens</h4>
         <p>Rodrigues et al. · <em>Nature Microbiology</em></p>
         <span class="doi">doi.org/10.1038/s41564-025-01962-4 ↗</span>
+      </div>
+    </a>
+    <a class="pub-link" href="https://doi.org/10.1016/j.xpro.2024.103069" target="_blank" rel="noopener">
+      <div class="pub-item">
+        <div class="pub-year">2024</div>
+        <h4>Protocol for separation of fungal extracellular vesicles using ultracentrifugation from solid medium cultures</h4>
+        <p>Piffer et al. · <em>STAR Protocols</em></p>
+        <span class="doi">doi.org/10.1016/j.xpro.2024.103069 ↗</span>
       </div>
     </a>
     <a class="pub-link" href="https://doi.org/10.1128/mbio.00870-23" target="_blank" rel="noopener">
